@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -60,4 +61,7 @@ dependencies {
     // Navigation with Compose
     val nav_version = "2.9.0"
     implementation("androidx.navigation:navigation-compose:$nav_version")
+
+    // Serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
 }
