@@ -1,6 +1,7 @@
 package com.example.financetracker
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -12,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.financetracker.navigation.MainScreen
+import com.example.financetracker.navigation.Screen
 import com.example.financetracker.ui.theme.FinanceTrackerTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,5 +25,6 @@ class MainActivity : ComponentActivity() {
                 MainScreen()
             }
         }
+        //Log.d("log", Screen.Expenses.toString())
     }
 }

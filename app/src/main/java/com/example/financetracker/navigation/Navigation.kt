@@ -12,7 +12,7 @@ import com.example.financetracker.screens.MyArticlesScreen
 import com.example.financetracker.screens.SettingsScreen
 import kotlinx.serialization.Serializable
 
-sealed class Screen() {
+sealed class Screen {
     @Serializable
     data object Expenses: Screen()
 
@@ -33,7 +33,11 @@ fun Navigation(
     modifier: Modifier,
     navController: NavHostController
 ) {
-    NavHost(modifier = modifier, navController = navController, startDestination = Screen.Expenses) {
+    NavHost(
+        modifier = modifier,
+        navController = navController,
+        startDestination = Screen.Expenses
+    ) {
         composable<Screen.Expenses> {
             ExpensesScreen { screen -> navController.navigate(screen) }
         }

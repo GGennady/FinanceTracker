@@ -1,6 +1,7 @@
 package com.example.financetracker.navigation
 
-import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,7 +16,6 @@ val bottomBarItems = listOf(
     BottomBarItem(Screen.Settings, "Settings", R.drawable.ic_settings)
 )
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
@@ -24,7 +24,12 @@ fun MainScreen() {
         bottomBar = {
             BottomBar(navController = navController, items = bottomBarItems)
         }
-    ) {
-        Navigation(navController = navController, modifier = Modifier)
+    ) { padding ->
+        Navigation(
+            modifier = Modifier
+                .padding(padding)
+                .systemBarsPadding(),
+            navController = navController,
+        )
     }
 }
