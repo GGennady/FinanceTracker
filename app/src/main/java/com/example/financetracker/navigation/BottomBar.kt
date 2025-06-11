@@ -16,6 +16,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.financetracker.ui.theme.DarkGrey
 import com.example.financetracker.ui.theme.Green
 import com.example.financetracker.ui.theme.LightGreen
+import com.example.financetracker.ui.theme.Typography
 import com.example.financetracker.ui.theme.surfaceContainer
 
 
@@ -41,6 +42,7 @@ fun BottomBar(navController: NavController, items: List<BottomBarItem>) {
             val isSelected = currentDestination?.route?.contains(item.screen::class.simpleName!!) == true
 
             NavigationBarItem(
+
                 selected = isSelected,
 
                 onClick = {
@@ -63,7 +65,10 @@ fun BottomBar(navController: NavController, items: List<BottomBarItem>) {
                 },
 
                 label = {
-                    Text(item.title, fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal)
+                    Text(
+                        text = item.title,
+                        style = Typography.labelMedium,
+                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal)
                 },
 
                 colors = NavigationBarItemDefaults.colors(
