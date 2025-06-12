@@ -28,6 +28,7 @@ sealed class Screen {
     @Serializable
     data object Settings: Screen()
 }
+
 @Composable
 fun Navigation(
     modifier: Modifier,

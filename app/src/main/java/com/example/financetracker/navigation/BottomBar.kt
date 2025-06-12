@@ -13,10 +13,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.financetracker.ui.theme.DarkGrey
 import com.example.financetracker.ui.theme.Green
 import com.example.financetracker.ui.theme.LightGreen
 import com.example.financetracker.ui.theme.Typography
+import com.example.financetracker.ui.theme.onSurfaceVariant
 import com.example.financetracker.ui.theme.surfaceContainer
 
 
@@ -72,10 +72,10 @@ fun BottomBar(navController: NavController, items: List<BottomBarItem>) {
                 },
 
                 colors = NavigationBarItemDefaults.colors(
-                    unselectedIconColor = DarkGrey,
+                    unselectedIconColor = onSurfaceVariant,
                     selectedIconColor = Green,
-                    unselectedTextColor = DarkGrey,
-                    selectedTextColor = DarkGrey,
+                    unselectedTextColor = onSurfaceVariant,
+                    selectedTextColor = onSurfaceVariant,
                     indicatorColor = LightGreen
                 ),
             )
