@@ -31,8 +31,8 @@ sealed class Screen {
 
 @Composable
 fun Navigation(
-    modifier: Modifier,
-    navController: NavHostController
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
 ) {
     NavHost(
         modifier = modifier,

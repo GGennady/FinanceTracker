@@ -5,8 +5,8 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.financetracker.R
 import com.example.financetracker.ui.theme.Green
@@ -14,9 +14,11 @@ import com.example.financetracker.ui.theme.White
 
 @Composable
 fun PlusFloatingActionButton(
+    modifier: Modifier,
     onClick: () -> Unit
 ) {
     FloatingActionButton(
+        modifier = modifier,
         onClick = onClick,
         containerColor = Green,
         contentColor = White,
@@ -34,8 +36,3 @@ fun PlusFloatingActionButton(
         )
     }
 }
-
-@Composable
-@Preview
-private fun PlusFloatingActionButtonPreview() =
-    PlusFloatingActionButton {  }
