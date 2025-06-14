@@ -11,9 +11,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.financetracker.R
 import com.example.financetracker.ui.theme.Black
@@ -22,15 +21,17 @@ import com.example.financetracker.ui.theme.Typography
 import com.example.financetracker.ui.theme.outlineVariant
 
 @Composable
-fun ListItem(
+fun HorizontalItem(
     modifier: Modifier = Modifier,
     emoji: String? = null,
     title: String,
     subtitle: String? = null,
     contentUpper: String? = null,
     contentLower: String? = null,
-    icon: Painter? = null,
+    icon: Int? = null,
     showDivider: Boolean = false,
+    titleColor: Color = Black,
+    onClick: (() -> Unit)? = null,
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
         Row(
@@ -58,13 +59,13 @@ fun ListItem(
             ) {
                 Text(
                     text = title,
-                    style = Typography.bodyMedium,
-                    color = Black,
+                    style = Typography.bodyLarge,
+                    color = titleColor,
                 )
                 if (subtitle != null) {
                     Text(
                         text = subtitle,
-                        style = Typography.bodySmall,
+                        style = Typography.bodyMedium,
                         color = Subtitile,
                     )
                 }
@@ -96,7 +97,7 @@ fun ListItem(
             // icon
             if (icon != null) {
                 Icon(
-                    painter = icon,
+                    painter = painterResource(icon),
                     contentDescription = "Icon",
                 )
             }
@@ -110,17 +111,3 @@ fun ListItem(
         }
     }
 }
-
-@Composable
-@Preview
-private fun ListItemPreview() =
-    ListItem(
-        modifier = Modifier,
-        emoji = "📚",
-        title = "Books",
-        subtitle = "Reading list",
-        contentUpper = "12 items",
-        contentLower = "Updated today",
-        icon = painterResource(id = R.drawable.ic_fab_plus),
-        showDivider = true
-    )
