@@ -16,8 +16,10 @@ import com.example.financetracker.ui.theme.onSurfaceVariant
 @OptIn(ExperimentalMaterial3Api::class)
 fun TopBar(
     title: String,
-    @DrawableRes clickableIcon: Int? = null,
-    onIconClick: ( () -> Unit )? = null,
+    @DrawableRes rightIcon: Int? = null,
+    onRightIconClick: ( () -> Unit )? = null,
+    @DrawableRes leftIcon: Int? = null,
+    onLeftIconClick: ( () -> Unit )? = null,
     colors: TopAppBarColors,
 ) {
     CenterAlignedTopAppBar(
@@ -28,13 +30,27 @@ fun TopBar(
             )
         },
 
-        actions = {
-            if(clickableIcon != null && onIconClick != null) {
+        navigationIcon = {
+            if (leftIcon != null && onLeftIconClick != null) {
                 IconButton(
-                    onClick = onIconClick,
+                    onClick = onLeftIconClick,
                 ) {
                     Icon(
-                        painter = painterResource(id = clickableIcon),
+                        painter = painterResource(id = leftIcon),
+                        contentDescription = "leftIcon",
+                        tint = onSurfaceVariant,
+                    )
+                }
+            }
+        },
+
+        actions = {
+            if(rightIcon != null && onRightIconClick != null) {
+                IconButton(
+                    onClick = onRightIconClick,
+                ) {
+                    Icon(
+                        painter = painterResource(id = rightIcon),
                         contentDescription = "clickableIcon",
                         tint = onSurfaceVariant,
                     )

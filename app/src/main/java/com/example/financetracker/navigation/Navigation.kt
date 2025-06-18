@@ -5,7 +5,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.financetracker.screens.ExpensesHistoryScreen
 import com.example.financetracker.screens.ExpensesScreen
+import com.example.financetracker.screens.IncomeHistoryScreen
 import com.example.financetracker.screens.IncomeScreen
 import com.example.financetracker.screens.MyAccountScreen
 import com.example.financetracker.screens.MyArticlesScreen
@@ -27,6 +29,12 @@ sealed class Screen {
 
     @Serializable
     data object Settings: Screen()
+
+    @Serializable
+    data object ExpensesHistory: Screen()
+
+    @Serializable
+    data object IncomeHistory: Screen()
 }
 
 @Composable
@@ -53,6 +61,18 @@ fun Navigation(
         }
         composable<Screen.Settings> {
             SettingsScreen { screen -> navController.navigate(screen) }
+        }
+        composable<Screen.ExpensesHistory> {
+            ExpensesHistoryScreen(
+                onBackClick = { navController.popBackStack() },
+                onNavigateTo = { screen -> navController.navigate(screen) },
+            )
+        }
+        composable<Screen.IncomeHistory> {
+            IncomeHistoryScreen(
+                onBackClick = { navController.popBackStack() },
+                onNavigateTo = { screen -> navController.navigate(screen) },
+            )
         }
     }
 }

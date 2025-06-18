@@ -77,8 +77,8 @@ fun IncomeScreen(
         ) {
             TopBar(
                 title = "Доходы сегодня",
-                clickableIcon = R.drawable.ic_history,
-                onIconClick = {},
+                rightIcon = R.drawable.ic_history,
+                onRightIconClick = { onNavigateTo(Screen.IncomeHistory) },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Green,
                     titleContentColor = onSurface,

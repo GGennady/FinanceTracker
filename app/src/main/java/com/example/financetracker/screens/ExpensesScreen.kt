@@ -35,7 +35,7 @@ val expensesTestItems = listOf(
         AccountBriefModel(1, "Тест", "500 000", "Р"),
         CategoryModel(1, "Аренда квартиры", "📘", false),
         "100 000",
-        "",
+        "2025-06-18T06:58:02.182Z",
         "",
         "",
         ""
@@ -77,8 +77,8 @@ fun ExpensesScreen(
         ) {
             TopBar(
                 title = "Расходы сегодня",
-                clickableIcon = R.drawable.ic_history,
-                onIconClick = {},
+                rightIcon = R.drawable.ic_history,
+                onRightIconClick = { onNavigateTo(Screen.ExpensesHistory) },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Green,
                     titleContentColor = onSurface,
