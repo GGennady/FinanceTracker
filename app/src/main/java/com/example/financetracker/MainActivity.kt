@@ -15,7 +15,9 @@ import androidx.core.view.WindowCompat
 import com.example.financetracker.navigation.MainScreen
 import com.example.financetracker.screens.SplashScreen
 import com.example.financetracker.ui.theme.FinanceTrackerTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,10 +1,14 @@
 package com.example.financetracker.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -16,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.financetracker.R
 import com.example.financetracker.ui.theme.Black
+import com.example.financetracker.ui.theme.LightGreen
 import com.example.financetracker.ui.theme.Subtitile
 import com.example.financetracker.ui.theme.Typography
 import com.example.financetracker.ui.theme.outlineVariant
@@ -43,11 +48,17 @@ fun HorizontalItem(
 
             // emoji
             if (emoji != null) {
-                Text(
-                    text = emoji,
+                Box(
                     modifier = Modifier
-                        .padding(end = 16.dp),
-                )
+                        .padding(end = 16.dp)
+                        .size(24.dp)
+                        .background(color = LightGreen, shape = CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = emoji,
+                    )
+                }
             }
 
             // title & subtitle
