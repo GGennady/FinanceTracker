@@ -1,4 +1,4 @@
-package com.example.financetracker.components
+package com.example.financetracker.presentation.components
 
 import androidx.annotation.DrawableRes
 import androidx.compose.material3.CenterAlignedTopAppBar

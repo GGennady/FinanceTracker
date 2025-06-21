@@ -1,4 +1,4 @@
-package com.example.financetracker.navigation
+package com.example.financetracker.presentation.navigation
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.PaddingValues

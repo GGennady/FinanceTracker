@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Finance Tracker</string>
+    <string name="expenses_sum">Всего</string>
+    <string name="expenses_topbar">Расходы сегодня</string>
+    <string name="income_sum">Всего</string>
+    <string name="income_topbar">Доходы сегодня</string>
+    <string name="expensesHistory_topbar">Моя история</string>
+    <string name="expensesHistory_sum">Сумма</string>
+    <string name="expensesHistory_endDate">Конец</string>
+    <string name="expensesHistory_startDate">Начало</string>
+    <string name="incomeHistory_sum">Сумма</string>
+    <string name="incomeHistory_endDate">Конец</string>
+    <string name="incomeHistory_startDate">Начало</string>
+    <string name="text1_customDatePicker">Ок</string>
+    <string name="text2_customDatePicker">Отмена</string>
+    <string name="incomeHistory_topbar">Моя история</string>
+    <string name="historyScreens_chooseDate">Выбрать дату</string>
+    <string name="myAccount_topbar">Мой счет</string>
+    <string name="myAccount_balance">Баланс</string>
+    <string name="myAccount_currency">Валюта</string>
+    <string name="myArticles_topbar">Мои статьи</string>
+    <string name="myArticles_search">Найти статью</string>
 </resources>

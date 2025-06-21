@@ -1,6 +1,7 @@
-package com.example.financetracker.components
+package com.example.financetracker.presentation.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,6 +43,7 @@ fun HorizontalItem(
         Row(
             modifier = modifier
                 .fillMaxWidth()
+                .clickable(enabled = onClick != null) { onClick?.invoke() }
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -73,7 +75,7 @@ fun HorizontalItem(
                     style = Typography.bodyLarge,
                     color = titleColor,
                 )
-                if (subtitle != null) {
+                if (subtitle != null && subtitle != "") {
                     Text(
                         text = subtitle,
                         style = Typography.bodyMedium,

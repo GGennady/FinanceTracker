@@ -1,4 +1,4 @@
-package com.example.financetracker.screens
+package com.example.financetracker.presentation.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -24,9 +24,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.financetracker.R
-import com.example.financetracker.components.HorizontalItem
-import com.example.financetracker.components.TopBar
-import com.example.financetracker.navigation.Screen
+import com.example.financetracker.presentation.components.HorizontalItem
+import com.example.financetracker.presentation.components.TopBar
+import com.example.financetracker.presentation.navigation.Screen
 import com.example.financetracker.ui.theme.Black
 import com.example.financetracker.ui.theme.Green
 import com.example.financetracker.ui.theme.Typography

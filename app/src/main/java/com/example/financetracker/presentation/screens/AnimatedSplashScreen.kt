@@ -1,4 +1,4 @@
-package com.example.financetracker.screens
+package com.example.financetracker.presentation.screens
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
