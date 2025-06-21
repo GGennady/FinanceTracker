@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -27,6 +28,7 @@ import com.example.financetracker.ui.theme.onSurface
 import com.example.financetracker.ui.theme.onSurfaceVariant
 import com.example.financetracker.ui.theme.surfaceContainerHigh
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
 import com.example.financetracker.presentation.components.HandleErrors
 
@@ -94,6 +96,16 @@ fun MyArticlesScreen(
                         showDivider = true
                     )
                 }
+            }
+        }
+        if (myArticlesState.isLoading) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                CircularProgressIndicator(
+                    color = Green
+                )
             }
         }
     }
