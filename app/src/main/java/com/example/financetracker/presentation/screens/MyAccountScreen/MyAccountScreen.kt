@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.TopAppBarDefaults
@@ -94,6 +95,17 @@ fun MyAccountScreen(
                 contentUpper = myAccountState.account?.currency,
                 icon =  R.drawable.ic_arrow_detail,
             )
+        }
+
+        if (myAccountState.isLoading) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                CircularProgressIndicator(
+                    color = Green
+                )
+            }
         }
 
         PlusFloatingActionButton(

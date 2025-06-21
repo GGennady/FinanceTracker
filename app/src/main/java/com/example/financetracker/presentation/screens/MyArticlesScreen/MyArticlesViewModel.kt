@@ -24,7 +24,9 @@ class MyArticlesViewModel @Inject constructor(private val repository: ApiReposit
 
             _articlesState.value = when (result) {
                 is Result.Success -> _articlesState.value.copy(
-                    categories = result.data
+                    categories = result.data,
+                    isLoading = false,
+                    error = null,
                 )
 
                 is Result.Error -> _articlesState.value.copy(
