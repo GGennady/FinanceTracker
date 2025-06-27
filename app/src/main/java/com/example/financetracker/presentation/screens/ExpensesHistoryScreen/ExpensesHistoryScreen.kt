@@ -157,7 +157,10 @@ fun ExpensesHistoryScreen(
             LazyColumn (
                 contentPadding = PaddingValues(bottom = 1.dp) // to show last divider
             ){
-                items(expensesHistoryState.transactions.filter { !it.category.isIncome }) { item ->
+                items(expensesHistoryState.transactions
+                    .filter { !it.category.isIncome }
+                    .sortedByDescending { it.transactionDate }
+                ) { item ->
                     HorizontalItem(
                         modifier = Modifier.height(70.dp),
                         emoji = item.category.emoji,
