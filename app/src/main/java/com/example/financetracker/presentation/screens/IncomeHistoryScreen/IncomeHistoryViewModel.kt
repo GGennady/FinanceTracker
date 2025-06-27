@@ -4,7 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.financetracker.data.Result
+import com.example.financetracker.Result
 import com.example.financetracker.data.repository.ApiRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -42,27 +42,27 @@ class IncomeHistoryViewModel @Inject constructor(private val repository: ApiRepo
         }
     }
 
-    private val _startDate = mutableStateOf<LocalDate?>(null)
-    val startDate: State<LocalDate?> = _startDate
-
-    private val _endDate = mutableStateOf<LocalDate?>(null)
-    val endDate: State<LocalDate?> = _endDate
-
     fun setStartDate(date: LocalDate) {
-        _startDate.value = date
+        _incomeHistoryState.value = _incomeHistoryState.value.copy(startDate = date)
         tryFetchIfBothDatesSelected()
     }
 
     fun setEndDate(date: LocalDate) {
-        _endDate.value = date
+        _incomeHistoryState.value = _incomeHistoryState.value.copy(endDate = date)
         tryFetchIfBothDatesSelected()
     }
 
     private fun tryFetchIfBothDatesSelected() {
-        val start = _startDate.value
-        val end = _endDate.value
+        val start = _incomeHistoryState.value.startDate
+        val end = _incomeHistoryState.value.endDate
 
         if (start != null && end != null) {
+            if (start.isAfter(end)) {
+                _incomeHistoryState.value = _incomeHistoryState.value.copy(
+                    error = Result.Error.CalendarError
+                )
+            }
+
             val formatter = DateTimeFormatter.ISO_LOCAL_DATE
             getAllIncomeHistory(
                 startDate = start.format(formatter),

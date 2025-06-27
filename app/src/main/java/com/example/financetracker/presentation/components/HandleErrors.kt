@@ -4,7 +4,7 @@ import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
-import com.example.financetracker.data.Result
+import com.example.financetracker.Result
 
 @Composable
 fun HandleErrors(
@@ -20,10 +20,11 @@ fun HandleErrors(
                 is Result.Error.Unauthorized -> "Error 401: Unauthorized"
                 is Result.Error.NotFound -> "Error 404: Not Found"
                 is Result.Error.InternalServerError -> "Error 500: Internal Server Error"
+                is Result.Error.CalendarError -> "Error: start date is after than end date"
                 is Result.Error.OfflineError -> "Error: You are offline"
                 else -> "Unknown error"
             }
-            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             onErrorHandled()
         }
     }

@@ -1,6 +1,5 @@
 package com.example.financetracker.presentation.screens.ExpensesScreen
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,41 +14,24 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.financetracker.R
+import com.example.financetracker.presentation.components.HandleErrors
 import com.example.financetracker.presentation.components.HorizontalItem
 import com.example.financetracker.presentation.components.PlusFloatingActionButton
 import com.example.financetracker.presentation.components.TopBar
-import com.example.financetracker.data.api.model.AccountBriefModel
-import com.example.financetracker.data.api.model.CategoryModel
-import com.example.financetracker.data.api.model.TransactionModel
 import com.example.financetracker.presentation.navigation.Screen
 import com.example.financetracker.ui.theme.Green
 import com.example.financetracker.ui.theme.LightGreen
-import com.example.financetracker.ui.theme.surface
 import com.example.financetracker.ui.theme.onSurface
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.res.stringResource
-import com.example.financetracker.presentation.components.HandleErrors
+import com.example.financetracker.ui.theme.surface
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-
-val expensesTestItems = listOf(
-    TransactionModel(
-        0,
-        AccountBriefModel(1, "Тест", "500 000", "Р"),
-        CategoryModel(1, "Аренда квартиры", "📘", false),
-        "100 000",
-        "2025-06-18T06:58:02.182Z",
-        "",
-        "",
-        ""
-    ),
-)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,14 +42,12 @@ fun ExpensesScreen(
 
     val expensesState by viewModel.expensesState
 
-    // not working because of api backend issues, so for testing just change LaunchedEffect(Unit):...
-    //..."viewModel.getAllExpenses(startDate, endDate)" to "viewModel.getAllExpenses()"...
     val startOfDay = LocalDate.now().atStartOfDay()
     val endOfDay = startOfDay.plusDays(1).minusSeconds(1)
     val startDate = startOfDay.format(DateTimeFormatter.ISO_LOCAL_DATE)
     val endDate = endOfDay.format(DateTimeFormatter.ISO_LOCAL_DATE)
     LaunchedEffect(Unit) {
-        viewModel.getAllExpenses()
+        viewModel.getAllExpenses(startDate, endDate)
     }
 
     HandleErrors(
@@ -147,10 +127,4 @@ fun ExpensesScreen(
 
         }
     }
-}
-
-@Composable
-@Preview
-private fun ExpensesScreenPreview() {
-    ExpensesScreen ( { } )
 }

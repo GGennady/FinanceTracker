@@ -15,7 +15,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.financetracker.R
@@ -49,8 +48,20 @@ fun IncomeHistoryScreen(
 
     val incomeHistoryState by viewModel.incomeHistoryState
 
-    LaunchedEffect(Unit) {
-        viewModel.getAllIncomeHistory()
+    val startDate = incomeHistoryState.startDate
+    val endDate = incomeHistoryState.endDate
+
+    LaunchedEffect(key1 = startDate, key2 = endDate) {
+        if (startDate == null && endDate == null) {
+            viewModel.getAllIncomeHistory()
+        }
+        if (startDate != null && endDate != null) {
+            val formatter = DateTimeFormatter.ISO_LOCAL_DATE
+            viewModel.getAllIncomeHistory(
+                startDate = startDate.format(formatter),
+                endDate = endDate.format(formatter)
+            )
+        }
     }
 
     HandleErrors(
@@ -60,8 +71,6 @@ fun IncomeHistoryScreen(
 
     var showStartPicker by remember { mutableStateOf(false) }
     var showEndPicker by remember { mutableStateOf(false) }
-    val startDate = viewModel.startDate.value
-    val endDate = viewModel.endDate.value
 
     if (showStartPicker) {
         CustomDatePicker(
@@ -154,7 +163,7 @@ fun IncomeHistoryScreen(
                         emoji = item.category.emoji,
                         title = item.category.name,
                         contentUpper = "${item.amount} ${item.account.currency}",
-                        contentLower = DateConverter.formatIsoDate(item.transactionDate),
+                        contentLower = DateConverter.formatIsoDate(item.transactionDate) ?: "DateTimeParseException",
                         icon = R.drawable.ic_arrow_detail,
                         showDivider = true,
                     )
@@ -172,10 +181,4 @@ fun IncomeHistoryScreen(
             }
         }
     }
-}
-
-@Composable
-@Preview
-private fun IncomeHistoryScreen() {
-    IncomeHistoryScreen(onBackClick = {}, onNavigateTo = {})
 }

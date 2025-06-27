@@ -15,7 +15,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.financetracker.R
@@ -49,8 +48,20 @@ fun ExpensesHistoryScreen(
 
     val expensesHistoryState by viewModel.expensesHistoryState
 
-    LaunchedEffect(Unit) {
-        viewModel.getAllExpensesHistory()
+    val startDate = expensesHistoryState.startDate
+    val endDate = expensesHistoryState.endDate
+
+    LaunchedEffect(key1 = startDate, key2 = endDate) {
+        if (startDate == null && endDate == null) {
+            viewModel.getAllExpensesHistory()
+        }
+        if (startDate != null && endDate != null) {
+            val formatter = DateTimeFormatter.ISO_LOCAL_DATE
+            viewModel.getAllExpensesHistory(
+                startDate = startDate.format(formatter),
+                endDate = endDate.format(formatter)
+            )
+        }
     }
 
     HandleErrors(
@@ -60,8 +71,6 @@ fun ExpensesHistoryScreen(
 
     var showStartPicker by remember { mutableStateOf(false) }
     var showEndPicker by remember { mutableStateOf(false) }
-    val startDate = viewModel.startDate.value
-    val endDate = viewModel.endDate.value
 
     if (showStartPicker) {
         CustomDatePicker(
@@ -155,7 +164,7 @@ fun ExpensesHistoryScreen(
                         title = item.category.name,
                         subtitle = item.comment,
                         contentUpper = "${item.amount} ${item.account.currency}",
-                        contentLower = DateConverter.formatIsoDate(item.transactionDate),
+                        contentLower = DateConverter.formatIsoDate(item.transactionDate) ?: "DateTimeParseException",
                         icon = R.drawable.ic_arrow_detail,
                         showDivider = true,
                     )
@@ -174,10 +183,4 @@ fun ExpensesHistoryScreen(
             }
         }
     }
-}
-
-@Composable
-@Preview
-private fun ExpensesHistoryScreen() {
-    ExpensesHistoryScreen(onBackClick = {}, onNavigateTo = {})
 }

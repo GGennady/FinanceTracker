@@ -1,4 +1,4 @@
-package com.example.financetracker.data
+package com.example.financetracker
 
 sealed class Result<out T> {
     data class Success<T>(val data: T) : Result<T>()
@@ -13,10 +13,14 @@ sealed class Result<out T> {
         // 500
         data object InternalServerError: Error()
 
-        // Other
-        data object OtherErrors: Error()
 
         // offline
         data object OfflineError: Error()
+
+        // calendar
+        data object CalendarError: Error()
+
+        // Other
+        data object OtherErrors: Error()
     }
 }

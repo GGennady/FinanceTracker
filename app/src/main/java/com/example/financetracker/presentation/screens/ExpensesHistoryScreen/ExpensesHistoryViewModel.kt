@@ -4,7 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.financetracker.data.Result
+import com.example.financetracker.Result
 import com.example.financetracker.data.repository.ApiRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -42,27 +42,27 @@ class ExpensesHistoryViewModel @Inject constructor(private val repository: ApiRe
         }
     }
 
-    private val _startDate = mutableStateOf<LocalDate?>(null)
-    val startDate: State<LocalDate?> = _startDate
-
-    private val _endDate = mutableStateOf<LocalDate?>(null)
-    val endDate: State<LocalDate?> = _endDate
-
     fun setStartDate(date: LocalDate) {
-        _startDate.value = date
+        _expensesHistoryState.value = _expensesHistoryState.value.copy(startDate = date)
         tryFetchIfBothDatesSelected()
     }
 
     fun setEndDate(date: LocalDate) {
-        _endDate.value = date
+        _expensesHistoryState.value = _expensesHistoryState.value.copy(endDate = date)
         tryFetchIfBothDatesSelected()
     }
 
     private fun tryFetchIfBothDatesSelected() {
-        val start = _startDate.value
-        val end = _endDate.value
+        val start = _expensesHistoryState.value.startDate
+        val end = _expensesHistoryState.value.endDate
 
         if (start != null && end != null) {
+            if (start.isAfter(end)) {
+                _expensesHistoryState.value = _expensesHistoryState.value.copy(
+                    error = Result.Error.CalendarError
+                )
+            }
+
             val formatter = DateTimeFormatter.ISO_LOCAL_DATE
             getAllExpensesHistory(
                 startDate = start.format(formatter),

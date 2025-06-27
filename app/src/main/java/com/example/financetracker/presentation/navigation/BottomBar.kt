@@ -36,7 +36,6 @@ fun BottomBar(navController: NavController, items: List<BottomBarItem>) {
             val isSelected = currentDestination?.hierarchy?.any {
                 it.hasRoute(item.screen::class)
             } == true
-            //val isSelected = currentDestination?.route?.contains(item.screen::class.simpleName!!) == true
 
             NavigationBarItem(
 

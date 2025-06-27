@@ -18,37 +18,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.financetracker.R
+import com.example.financetracker.presentation.components.HandleErrors
 import com.example.financetracker.presentation.components.HorizontalItem
 import com.example.financetracker.presentation.components.PlusFloatingActionButton
 import com.example.financetracker.presentation.components.TopBar
-import com.example.financetracker.data.api.model.AccountBriefModel
-import com.example.financetracker.data.api.model.CategoryModel
-import com.example.financetracker.data.api.model.TransactionModel
-import com.example.financetracker.presentation.components.HandleErrors
 import com.example.financetracker.presentation.navigation.Screen
 import com.example.financetracker.ui.theme.Green
 import com.example.financetracker.ui.theme.LightGreen
-import com.example.financetracker.ui.theme.surface
 import com.example.financetracker.ui.theme.onSurface
+import com.example.financetracker.ui.theme.surface
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-
-val incomeTestItems = listOf(
-    TransactionModel(
-        0,
-        AccountBriefModel(1, "Тест", "500 000", "Р"),
-        CategoryModel(1, "Акции", "📘", true),
-        "100 000",
-        "",
-        "",
-        "",
-        ""
-    ),
-)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,14 +42,12 @@ fun IncomeScreen(
 
     val incomeState by viewModel.incomeState
 
-    // not working because of api backend issues, so for testing just change LaunchedEffect(Unit):...
-    //..."viewModel.getAllExpenses(startDate, endDate)" to "viewModel.getAllExpenses()"...
     val startOfDay = LocalDate.now().atStartOfDay()
     val endOfDay = startOfDay.plusDays(1).minusSeconds(1)
     val startDate = startOfDay.format(DateTimeFormatter.ISO_LOCAL_DATE)
     val endDate = endOfDay.format(DateTimeFormatter.ISO_LOCAL_DATE)
     LaunchedEffect(Unit) {
-        viewModel.getAllIncome()
+        viewModel.getAllIncome(startDate, endDate)
     }
 
     HandleErrors(
@@ -145,10 +126,4 @@ fun IncomeScreen(
 
         }
     }
-}
-
-@Composable
-@Preview
-private fun IncomeScreenPreview() {
-    IncomeScreen ({  })
 }

@@ -13,12 +13,12 @@ object DateConverter {
     fun formatIsoDate(
         isoDate: String,
         formatter: DateTimeFormatter = defaultFormatter
-    ): String {
+    ): String? {
         return try {
             val zonedDateTime = ZonedDateTime.parse(isoDate)
             zonedDateTime.format(formatter)
         } catch (e: DateTimeParseException) {
-            isoDate // if date invalid
+            null // if date invalid
         }
     }
 }
