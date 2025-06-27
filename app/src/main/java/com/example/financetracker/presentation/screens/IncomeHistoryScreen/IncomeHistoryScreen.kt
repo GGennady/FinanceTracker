@@ -32,7 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
-import com.example.financetracker.DateConverter
+import com.example.financetracker.utils.DateConverter
 import com.example.financetracker.presentation.components.CustomDatePicker
 import com.example.financetracker.presentation.components.HandleErrors
 import java.time.LocalDate

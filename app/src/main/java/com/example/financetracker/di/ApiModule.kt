@@ -1,4 +1,4 @@
-package com.example.financetracker.data.di
+package com.example.financetracker.di
 
 import com.example.financetracker.data.api.ApiService
 import dagger.Module
@@ -11,6 +11,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+/**
+ * Provides API dependencies.
+ *
+ * This module includes providers for interceptors, OkHttpClient, Retrofit,...
+ * ...and the API service interface.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiModule {

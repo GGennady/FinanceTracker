@@ -1,14 +1,21 @@
 package com.example.financetracker.data
 
 import android.util.Log
-import com.example.financetracker.NetworkMonitor
-import com.example.financetracker.Result
+import com.example.financetracker.utils.NetworkMonitor
+import com.example.financetracker.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 
+/**
+ * Base class for handling API responses with retry and error handling logic.
+ *
+ * Provides a safeApiCall wrapper to standardize error mapping and retries for network calls.
+ *
+ * @property networkMonitor Used to check network availability before making a request.
+ */
 abstract class BaseApiResponse (protected val networkMonitor: NetworkMonitor) {
 
     private val retryableStatusCodes = setOf(500)
@@ -22,7 +29,14 @@ abstract class BaseApiResponse (protected val networkMonitor: NetworkMonitor) {
             else -> Result.Error.OtherErrors
         }
     }
-
+    /**
+     * Executes an API call with automatic retry and error handling.
+     *
+     * @param call The suspending function making the API call.
+     * @param retryCount Number of retry attempts for retryable errors.
+     * @param delayMillSec Delay in milliseconds between retry attempts.
+     * @return Result sealed class.
+     */
     suspend fun <T> safeApiCall(
         call: suspend () -> T,
         retryCount: Int = 3,

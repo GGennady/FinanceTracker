@@ -1,10 +1,13 @@
-package com.example.financetracker
+package com.example.financetracker.utils
 
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import java.util.Locale
 
+/**
+ * Utility object for formatting ISO date strings.
+ */
 object DateConverter {
 
     private val defaultFormatter: DateTimeFormatter =

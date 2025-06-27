@@ -7,6 +7,11 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+/**
+ * Defines the API service for connection with backend endpoints.
+ *
+ * Provides methods to get transactions, account and categories.
+ */
 interface ApiService {
 
     @GET("transactions/account/{accountId}/period")

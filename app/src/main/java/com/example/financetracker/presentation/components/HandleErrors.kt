@@ -4,7 +4,7 @@ import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
-import com.example.financetracker.Result
+import com.example.financetracker.utils.Result
 
 @Composable
 fun HandleErrors(

@@ -4,16 +4,23 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.financetracker.Result
-import com.example.financetracker.data.repository.ApiRepository
+import com.example.financetracker.utils.Result
+import com.example.financetracker.domain.FinanceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
+/**
+ * ViewModel for managing the IncomeHistoryScreen logic.
+ *
+ * Fetches transactions from the repository and shows UI state.
+ *
+ * @property repository The repository providing access to data.
+ */
 @HiltViewModel
-class IncomeHistoryViewModel @Inject constructor(private val repository: ApiRepository): ViewModel() {
+class IncomeHistoryViewModel @Inject constructor(private val repository: FinanceRepository): ViewModel() {
 
     private val _incomeHistoryState = mutableStateOf(IncomeHistoryUIState(isLoading = true))
     val incomeHistoryState: State<IncomeHistoryUIState> = _incomeHistoryState
