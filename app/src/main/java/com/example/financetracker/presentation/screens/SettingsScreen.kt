@@ -21,6 +21,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.financetracker.R
@@ -47,7 +48,9 @@ fun SettingsScreen(
             .background(surface),
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().background(surface)
+            modifier = Modifier
+                .fillMaxSize()
+                .background(surface)
         ) {
             TopBar(
                 title = "Настройки",
@@ -90,7 +93,7 @@ fun SettingsScreen(
             HorizontalItem(
                 modifier = Modifier
                     .height(56.dp),
-                title = "Основной экран",
+                title = stringResource(R.string.settings_mainScreen),
                 icon = R.drawable.ic_arrow_detail_v2,
                 showDivider = true,
             )
@@ -98,7 +101,7 @@ fun SettingsScreen(
             HorizontalItem(
                 modifier = Modifier
                     .height(56.dp),
-                title = "Звуки",
+                title = stringResource(R.string.settings_sounds),
                 icon = R.drawable.ic_arrow_detail_v2,
                 showDivider = true,
             )
@@ -106,7 +109,7 @@ fun SettingsScreen(
             HorizontalItem(
                 modifier = Modifier
                     .height(56.dp),
-                title = "Хаптики",
+                title = stringResource(R.string.settings_haptics),
                 icon = R.drawable.ic_arrow_detail_v2,
                 showDivider = true,
             )
@@ -114,7 +117,7 @@ fun SettingsScreen(
             HorizontalItem(
                 modifier = Modifier
                     .height(56.dp),
-                title = "Код пароль",
+                title = stringResource(R.string.settings_password),
                 icon = R.drawable.ic_arrow_detail_v2,
                 showDivider = true,
             )
@@ -122,7 +125,7 @@ fun SettingsScreen(
             HorizontalItem(
                 modifier = Modifier
                     .height(56.dp),
-                title = "Синхронизация",
+                title = stringResource(R.string.settings_syncronization),
                 icon = R.drawable.ic_arrow_detail_v2,
                 showDivider = true,
             )
@@ -130,7 +133,7 @@ fun SettingsScreen(
             HorizontalItem(
                 modifier = Modifier
                     .height(56.dp),
-                title = "Язык",
+                title = stringResource(R.string.settings_language),
                 icon = R.drawable.ic_arrow_detail_v2,
                 showDivider = true,
             )
@@ -138,7 +141,7 @@ fun SettingsScreen(
             HorizontalItem(
                 modifier = Modifier
                     .height(56.dp),
-                title = "О программе",
+                title = stringResource(R.string.settings_about),
                 icon = R.drawable.ic_arrow_detail_v2,
                 showDivider = true,
             )
