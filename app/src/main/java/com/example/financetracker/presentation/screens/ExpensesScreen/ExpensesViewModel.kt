@@ -4,14 +4,21 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.financetracker.data.Result
-import com.example.financetracker.data.repository.ApiRepository
+import com.example.financetracker.utils.Result
+import com.example.financetracker.domain.FinanceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel for managing the ExpenseScreen logic.
+ *
+ * Fetches transactions from the repository and shows UI state.
+ *
+ * @property repository The repository providing access to data.
+ */
 @HiltViewModel
-class ExpensesViewModel @Inject constructor(private val repository: ApiRepository): ViewModel() {
+class ExpensesViewModel @Inject constructor(private val repository: FinanceRepository): ViewModel() {
 
     private val _expensesState = mutableStateOf(ExpensesUIState(isLoading = true))
     val expensesState: State<ExpensesUIState> = _expensesState

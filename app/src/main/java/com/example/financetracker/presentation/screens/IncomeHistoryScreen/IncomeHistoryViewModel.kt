@@ -4,16 +4,23 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.financetracker.data.Result
-import com.example.financetracker.data.repository.ApiRepository
+import com.example.financetracker.utils.Result
+import com.example.financetracker.domain.FinanceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
+/**
+ * ViewModel for managing the IncomeHistoryScreen logic.
+ *
+ * Fetches transactions from the repository and shows UI state.
+ *
+ * @property repository The repository providing access to data.
+ */
 @HiltViewModel
-class IncomeHistoryViewModel @Inject constructor(private val repository: ApiRepository): ViewModel() {
+class IncomeHistoryViewModel @Inject constructor(private val repository: FinanceRepository): ViewModel() {
 
     private val _incomeHistoryState = mutableStateOf(IncomeHistoryUIState(isLoading = true))
     val incomeHistoryState: State<IncomeHistoryUIState> = _incomeHistoryState
@@ -42,27 +49,27 @@ class IncomeHistoryViewModel @Inject constructor(private val repository: ApiRepo
         }
     }
 
-    private val _startDate = mutableStateOf<LocalDate?>(null)
-    val startDate: State<LocalDate?> = _startDate
-
-    private val _endDate = mutableStateOf<LocalDate?>(null)
-    val endDate: State<LocalDate?> = _endDate
-
     fun setStartDate(date: LocalDate) {
-        _startDate.value = date
+        _incomeHistoryState.value = _incomeHistoryState.value.copy(startDate = date)
         tryFetchIfBothDatesSelected()
     }
 
     fun setEndDate(date: LocalDate) {
-        _endDate.value = date
+        _incomeHistoryState.value = _incomeHistoryState.value.copy(endDate = date)
         tryFetchIfBothDatesSelected()
     }
 
     private fun tryFetchIfBothDatesSelected() {
-        val start = _startDate.value
-        val end = _endDate.value
+        val start = _incomeHistoryState.value.startDate
+        val end = _incomeHistoryState.value.endDate
 
         if (start != null && end != null) {
+            if (start.isAfter(end)) {
+                _incomeHistoryState.value = _incomeHistoryState.value.copy(
+                    error = Result.Error.CalendarError
+                )
+            }
+
             val formatter = DateTimeFormatter.ISO_LOCAL_DATE
             getAllIncomeHistory(
                 startDate = start.format(formatter),

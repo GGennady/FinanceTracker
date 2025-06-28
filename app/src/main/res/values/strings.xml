@@ -20,4 +20,11 @@
     <string name="myAccount_currency">Валюта</string>
     <string name="myArticles_topbar">Мои статьи</string>
     <string name="myArticles_search">Найти статью</string>
+    <string name="settings_mainScreen">Основной экран</string>
+    <string name="settings_sounds">Звуки</string>
+    <string name="settings_haptics">Хаптики</string>
+    <string name="settings_password">Код пароль</string>
+    <string name="settings_syncronization">Синхронизация</string>
+    <string name="settings_language">Язык</string>
+    <string name="settings_about">О программе</string>
 </resources>

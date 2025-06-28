@@ -20,7 +20,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.financetracker.R
 import com.example.financetracker.presentation.components.HorizontalItem
 import com.example.financetracker.presentation.components.TopBar
-import com.example.financetracker.data.api.model.CategoryModel
 import com.example.financetracker.presentation.navigation.Screen
 import com.example.financetracker.ui.theme.Green
 import com.example.financetracker.ui.theme.surface
@@ -31,13 +30,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
 import com.example.financetracker.presentation.components.HandleErrors
-
-val myArticlesTestItems = listOf(
-    CategoryModel(id = 1, name = "КатегориНейм", emoji = "📘", false),
-    CategoryModel(id = 1, name = "КатегориНейм", emoji = "📘", false),
-    CategoryModel(id = 1, name = "КатегориНейм", emoji = "📘", false),
-    CategoryModel(id = 1, name = "КатегориНейм", emoji = "📘", false),
-)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -109,10 +101,4 @@ fun MyArticlesScreen(
             }
         }
     }
-}
-
-@Composable
-@Preview
-private fun MyArticlesScreenPreview() {
-    MyArticlesScreen ( {  } )
 }

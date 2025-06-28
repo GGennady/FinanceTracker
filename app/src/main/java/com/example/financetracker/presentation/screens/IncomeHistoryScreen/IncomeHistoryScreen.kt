@@ -15,7 +15,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.financetracker.R
@@ -33,7 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
-import com.example.financetracker.DateConverter
+import com.example.financetracker.utils.DateConverter
 import com.example.financetracker.presentation.components.CustomDatePicker
 import com.example.financetracker.presentation.components.HandleErrors
 import java.time.LocalDate
@@ -49,8 +48,20 @@ fun IncomeHistoryScreen(
 
     val incomeHistoryState by viewModel.incomeHistoryState
 
-    LaunchedEffect(Unit) {
-        viewModel.getAllIncomeHistory()
+    val startDate = incomeHistoryState.startDate
+    val endDate = incomeHistoryState.endDate
+
+    LaunchedEffect(key1 = startDate, key2 = endDate) {
+        if (startDate == null && endDate == null) {
+            viewModel.getAllIncomeHistory()
+        }
+        if (startDate != null && endDate != null) {
+            val formatter = DateTimeFormatter.ISO_LOCAL_DATE
+            viewModel.getAllIncomeHistory(
+                startDate = startDate.format(formatter),
+                endDate = endDate.format(formatter)
+            )
+        }
     }
 
     HandleErrors(
@@ -60,8 +71,6 @@ fun IncomeHistoryScreen(
 
     var showStartPicker by remember { mutableStateOf(false) }
     var showEndPicker by remember { mutableStateOf(false) }
-    val startDate = viewModel.startDate.value
-    val endDate = viewModel.endDate.value
 
     if (showStartPicker) {
         CustomDatePicker(
@@ -148,13 +157,16 @@ fun IncomeHistoryScreen(
             LazyColumn (
                 contentPadding = PaddingValues(bottom = 1.dp) // to show last divider
             ){
-                items(incomeHistoryState.transactions.filter { it.category.isIncome }) { item ->
+                items(incomeHistoryState.transactions
+                    .filter { it.category.isIncome }
+                    .sortedByDescending { it.transactionDate }
+                ) { item ->
                     HorizontalItem(
                         modifier = Modifier.height(70.dp),
                         emoji = item.category.emoji,
                         title = item.category.name,
                         contentUpper = "${item.amount} ${item.account.currency}",
-                        contentLower = DateConverter.formatIsoDate(item.transactionDate),
+                        contentLower = DateConverter.formatIsoDate(item.transactionDate) ?: "DateTimeParseException",
                         icon = R.drawable.ic_arrow_detail,
                         showDivider = true,
                     )
@@ -172,10 +184,4 @@ fun IncomeHistoryScreen(
             }
         }
     }
-}
-
-@Composable
-@Preview
-private fun IncomeHistoryScreen() {
-    IncomeHistoryScreen(onBackClick = {}, onNavigateTo = {})
 }

@@ -32,8 +32,6 @@ import com.example.financetracker.ui.theme.outlineVariant
 import androidx.compose.runtime.getValue
 import com.example.financetracker.presentation.components.HandleErrors
 
-val accountTestItem = AccountBriefModel(1, "Основной счет","-670 000", "Р")
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyAccountScreen(
@@ -116,10 +114,4 @@ fun MyAccountScreen(
 
         }
     }
-}
-
-@Composable
-@Preview
-private fun MyAccountScreenPreview() {
-    MyAccountScreen ( {  } )
 }

@@ -14,6 +14,11 @@ import com.example.financetracker.presentation.screens.MyArticlesScreen.MyArticl
 import com.example.financetracker.presentation.screens.SettingsScreen
 import kotlinx.serialization.Serializable
 
+/**
+ * Navigation destinations.
+ *
+ * Represents each screen in the app using a sealed class hierarchy for type-safe navigation.
+ */
 sealed class Screen {
     @Serializable
     data object Expenses: Screen()
