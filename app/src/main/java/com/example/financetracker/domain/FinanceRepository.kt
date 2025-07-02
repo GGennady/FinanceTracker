@@ -11,9 +11,9 @@ import com.example.financetracker.utils.Result
  * Abstracts data sources and defines operations for transactions, accounts, and categories.
  */
 interface FinanceRepository {
-    suspend fun getAllTransactions(accountId: Int, startDate: String? = null, endDate: String? = null): Result<List<TransactionModel>>
+    suspend fun getAllTransactions(startDate: String? = null, endDate: String? = null): Result<List<TransactionModel>>
 
-    suspend fun getAccountById(id: Int): Result<AccountResponseModel>
+    suspend fun getAccountById(): Result<AccountResponseModel>
 
     suspend fun getAllCategories(): Result<List<CategoryModel>>
 }

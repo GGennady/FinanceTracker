@@ -28,7 +28,6 @@ class IncomeViewModel @Inject constructor(private val repository: FinanceReposit
             _incomeState.value = _incomeState.value.copy(isLoading = true)
 
             val result = repository.getAllTransactions(
-                accountId = 21,
                 startDate = startDate,
                 endDate = endDate
             )

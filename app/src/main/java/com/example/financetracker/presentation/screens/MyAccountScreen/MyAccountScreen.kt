@@ -42,7 +42,7 @@ fun MyAccountScreen(
     val myAccountState by viewModel.accountState
 
     LaunchedEffect(Unit) {
-        viewModel.getAccountById(21)
+        viewModel.getAccountById()
     }
 
     HandleErrors(

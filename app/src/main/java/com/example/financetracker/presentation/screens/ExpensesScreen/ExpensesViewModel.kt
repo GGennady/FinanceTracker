@@ -28,7 +28,6 @@ class ExpensesViewModel @Inject constructor(private val repository: FinanceRepos
             _expensesState.value = _expensesState.value.copy(isLoading = true)
 
             val result = repository.getAllTransactions(
-                accountId = 21,
                 startDate = startDate,
                 endDate = endDate
             )

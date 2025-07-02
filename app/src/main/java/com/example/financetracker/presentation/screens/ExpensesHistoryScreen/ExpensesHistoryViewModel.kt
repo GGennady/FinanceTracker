@@ -30,7 +30,6 @@ class ExpensesHistoryViewModel @Inject constructor(private val repository: Finan
             _expensesHistoryState.value = _expensesHistoryState.value.copy(isLoading = true)
 
             val result = repository.getAllTransactions(
-                accountId = 21,
                 startDate = startDate,
                 endDate = endDate
             )

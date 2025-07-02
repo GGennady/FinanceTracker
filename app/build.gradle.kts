@@ -103,4 +103,7 @@ dependencies {
     // Coroutine Lifecycle Scopes
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.1")
+
+    // Preferences DataStore
+    implementation("androidx.datastore:datastore-preferences:1.1.7")
 }

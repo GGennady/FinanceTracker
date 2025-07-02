@@ -30,7 +30,6 @@ class IncomeHistoryViewModel @Inject constructor(private val repository: Finance
             _incomeHistoryState.value = _incomeHistoryState.value.copy(isLoading = true)
 
             val result = repository.getAllTransactions(
-                accountId = 21,
                 startDate = startDate,
                 endDate = endDate
             )
