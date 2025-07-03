@@ -11,6 +11,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -64,9 +66,11 @@ fun ExpensesHistoryScreen(
         }
     }
 
+    val snackbarHostState = remember { SnackbarHostState() }
     HandleErrors(
         error = expensesHistoryState.error,
-        onErrorHandled = { viewModel.clearError() }
+        onErrorHandled = { viewModel.clearError() },
+        snackbarHostState = snackbarHostState
     )
 
     var showStartPicker by remember { mutableStateOf(false) }
@@ -173,17 +177,25 @@ fun ExpensesHistoryScreen(
                     )
                 }
             }
+
+            if (expensesHistoryState.isLoading) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    CircularProgressIndicator(
+                        color = Green
+                    )
+                }
+            }
         }
 
-        if (expensesHistoryState.isLoading) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center,
-            ) {
-                CircularProgressIndicator(
-                    color = Green
-                )
-            }
+        // snackbar
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.BottomCenter
+        ) {
+            SnackbarHost(hostState = snackbarHostState)
         }
     }
 }

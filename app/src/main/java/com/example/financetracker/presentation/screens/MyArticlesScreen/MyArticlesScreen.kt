@@ -10,6 +10,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,6 +29,7 @@ import com.example.financetracker.ui.theme.onSurface
 import com.example.financetracker.ui.theme.onSurfaceVariant
 import com.example.financetracker.ui.theme.surfaceContainerHigh
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
 import com.example.financetracker.presentation.components.HandleErrors
@@ -44,9 +47,11 @@ fun MyArticlesScreen(
         viewModel.getAllArticles()
     }
 
+    val snackbarHostState = remember { SnackbarHostState() }
     HandleErrors(
         error = myArticlesState.error,
-        onErrorHandled = { viewModel.clearError() }
+        onErrorHandled = { viewModel.clearError() },
+        snackbarHostState = snackbarHostState
     )
 
     Box(
@@ -89,16 +94,25 @@ fun MyArticlesScreen(
                     )
                 }
             }
-        }
-        if (myArticlesState.isLoading) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center,
-            ) {
-                CircularProgressIndicator(
-                    color = Green
-                )
+
+            if (myArticlesState.isLoading) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    CircularProgressIndicator(
+                        color = Green
+                    )
+                }
             }
+        }
+
+        // snackbar
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.BottomCenter
+        ) {
+            SnackbarHost(hostState = snackbarHostState)
         }
     }
 }

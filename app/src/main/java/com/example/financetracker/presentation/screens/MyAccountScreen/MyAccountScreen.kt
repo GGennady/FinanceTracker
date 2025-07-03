@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -30,6 +32,7 @@ import com.example.financetracker.ui.theme.surface
 import com.example.financetracker.ui.theme.onSurface
 import com.example.financetracker.ui.theme.outlineVariant
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import com.example.financetracker.presentation.components.HandleErrors
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,9 +48,11 @@ fun MyAccountScreen(
         viewModel.getAccountById()
     }
 
+    val snackbarHostState = remember { SnackbarHostState() }
     HandleErrors(
         error = myAccountState.error,
-        onErrorHandled = { viewModel.clearError() }
+        onErrorHandled = { viewModel.clearError() },
+        snackbarHostState = snackbarHostState
     )
 
     Box(
@@ -93,18 +98,19 @@ fun MyAccountScreen(
                 contentUpper = myAccountState.account?.currency,
                 icon =  R.drawable.ic_arrow_detail,
             )
-        }
 
-        if (myAccountState.isLoading) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center,
-            ) {
-                CircularProgressIndicator(
-                    color = Green
-                )
+            if (myAccountState.isLoading) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    CircularProgressIndicator(
+                        color = Green
+                    )
+                }
             }
         }
+
 
         PlusFloatingActionButton(
             modifier = Modifier
@@ -112,6 +118,14 @@ fun MyAccountScreen(
                 .padding(end = 16.dp, bottom = 16.dp),
         ) {
 
+        }
+
+        // snackbar
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.BottomCenter
+        ) {
+            SnackbarHost(hostState = snackbarHostState)
         }
     }
 }

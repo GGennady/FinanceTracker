@@ -1,6 +1,7 @@
 package com.example.financetracker.presentation.components
 
 import android.widget.Toast
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
@@ -9,9 +10,10 @@ import com.example.financetracker.utils.Result
 @Composable
 fun HandleErrors(
     error: Result.Error?,
-    onErrorHandled: () -> Unit
+    onErrorHandled: () -> Unit,
+    snackbarHostState: SnackbarHostState,
 ) {
-    val context = LocalContext.current
+    //val context = LocalContext.current
 
     LaunchedEffect(error) {
         error?.let {
@@ -24,8 +26,12 @@ fun HandleErrors(
                 is Result.Error.OfflineError -> "Error: You are offline"
                 else -> "Unknown error"
             }
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+
+            //Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            snackbarHostState.showSnackbar(message)
+
             onErrorHandled()
         }
     }
+
 }
