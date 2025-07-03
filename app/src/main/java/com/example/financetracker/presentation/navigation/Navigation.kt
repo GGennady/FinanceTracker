@@ -5,12 +5,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.financetracker.presentation.screens.ExpensesHistoryScreen.ExpensesHistoryScreen
-import com.example.financetracker.presentation.screens.ExpensesScreen.ExpensesScreen
-import com.example.financetracker.presentation.screens.IncomeHistoryScreen.IncomeHistoryScreen
-import com.example.financetracker.presentation.screens.IncomeScreen.IncomeScreen
-import com.example.financetracker.presentation.screens.MyAccountScreen.MyAccountScreen
-import com.example.financetracker.presentation.screens.MyArticlesScreen.MyArticlesScreen
+import com.example.financetracker.presentation.screens.expenses_history.ExpensesHistoryScreen
+import com.example.financetracker.presentation.screens.expenses.ExpensesScreen
+import com.example.financetracker.presentation.screens.income_history.IncomeHistoryScreen
+import com.example.financetracker.presentation.screens.Income.IncomeScreen
+import com.example.financetracker.presentation.screens.my_account.MyAccountScreen
+import com.example.financetracker.presentation.screens.my_articles.MyArticlesScreen
 import com.example.financetracker.presentation.screens.SettingsScreen
 import kotlinx.serialization.Serializable
 

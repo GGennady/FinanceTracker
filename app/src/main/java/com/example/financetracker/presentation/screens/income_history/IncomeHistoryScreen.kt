@@ -1,4 +1,4 @@
-package com.example.financetracker.presentation.screens.IncomeHistoryScreen
+package com.example.financetracker.presentation.screens.income_history
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

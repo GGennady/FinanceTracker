@@ -5,7 +5,9 @@ import com.example.financetracker.utils.NetworkMonitor
 import com.example.financetracker.data.BaseApiResponse
 import com.example.financetracker.utils.Result
 import com.example.financetracker.data.api.ApiService
+import com.example.financetracker.data.api.model.AccountModel
 import com.example.financetracker.data.api.model.AccountResponseModel
+import com.example.financetracker.data.api.model.AccountUpdateRequestModel
 import com.example.financetracker.data.api.model.CategoryModel
 import com.example.financetracker.data.api.model.TransactionModel
 import com.example.financetracker.domain.FinanceRepository
@@ -38,5 +40,11 @@ class FinanceRepositoryImpl @Inject constructor(
 
     override suspend fun getAllCategories(): Result<List<CategoryModel>> {
         return safeApiCall( { api.getAllCategories() } )
+    }
+
+    override suspend fun putAccountById(name: String, balance: String, currency: String): Result<AccountModel> {
+        val id = accountIdStorage.getAccountId().first()
+        val requestBody = AccountUpdateRequestModel(name, balance, currency)
+        return safeApiCall( { api.putAccountById(id, requestBody) } )
     }
 }

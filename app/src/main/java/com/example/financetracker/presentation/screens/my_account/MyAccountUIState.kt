@@ -1,5 +1,6 @@
-package com.example.financetracker.presentation.screens.MyAccountScreen
+package com.example.financetracker.presentation.screens.my_account
 
+import com.example.financetracker.data.api.model.AccountModel
 import com.example.financetracker.utils.Result
 import com.example.financetracker.data.api.model.AccountResponseModel
 
@@ -15,5 +16,6 @@ import com.example.financetracker.data.api.model.AccountResponseModel
 data class MyAccountUIState (
     val isLoading: Boolean = false,
     val account: AccountResponseModel? = null,
+    val accountAfterPut: AccountModel? = null,
     val error: Result.Error? = null,
 )

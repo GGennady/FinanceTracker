@@ -1,4 +1,4 @@
-package com.example.financetracker.presentation.screens.MyArticlesScreen
+package com.example.financetracker.presentation.screens.my_articles
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

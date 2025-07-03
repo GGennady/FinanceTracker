@@ -1,61 +1,57 @@
-package com.example.financetracker.presentation.screens.IncomeScreen
+package com.example.financetracker.presentation.screens.my_account
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.financetracker.R
-import com.example.financetracker.presentation.components.HandleErrors
 import com.example.financetracker.presentation.components.HorizontalItem
 import com.example.financetracker.presentation.components.PlusFloatingActionButton
 import com.example.financetracker.presentation.components.TopBar
 import com.example.financetracker.presentation.navigation.Screen
 import com.example.financetracker.ui.theme.Green
 import com.example.financetracker.ui.theme.LightGreen
-import com.example.financetracker.ui.theme.onSurface
 import com.example.financetracker.ui.theme.surface
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import com.example.financetracker.ui.theme.onSurface
+import com.example.financetracker.ui.theme.outlineVariant
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import com.example.financetracker.presentation.components.CurrencyBottomSheet
+import com.example.financetracker.presentation.components.HandleErrors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun IncomeScreen(
+fun MyAccountScreen(
     onNavigateTo: (Screen) -> Unit,
-    viewModel: IncomeViewModel = hiltViewModel(),
+    viewModel: MyAccountViewModel = hiltViewModel()
 ) {
 
-    val incomeState by viewModel.incomeState
+    val myAccountState by viewModel.accountState
 
-    val startOfDay = LocalDate.now().atStartOfDay()
-    val endOfDay = startOfDay.plusDays(1).minusSeconds(1)
-    val startDate = startOfDay.format(DateTimeFormatter.ISO_LOCAL_DATE)
-    val endDate = endOfDay.format(DateTimeFormatter.ISO_LOCAL_DATE)
     LaunchedEffect(Unit) {
-        viewModel.getAllIncome(startDate, endDate)
+        viewModel.getAccountById()
     }
 
     val snackbarHostState = remember { SnackbarHostState() }
     HandleErrors(
-        error = incomeState.error,
+        error = myAccountState.error,
         onErrorHandled = { viewModel.clearError() },
         snackbarHostState = snackbarHostState
     )
@@ -71,47 +67,65 @@ fun IncomeScreen(
                 .background(surface)
         ) {
             TopBar(
-                title = stringResource(R.string.income_topbar),
-                rightIcon = R.drawable.ic_history,
-                onRightIconClick = { onNavigateTo(Screen.IncomeHistory) },
+                title = stringResource(R.string.myAccount_topbar),
+                rightIcon = R.drawable.ic_edit,
+                onRightIconClick = {},
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Green,
                     titleContentColor = onSurface,
                 ),
             )
 
-            val incomeOnly = incomeState.transactions.filter { it.category.isIncome }
-            val totalIncome = incomeOnly.sumOf { transaction -> transaction.amount.toDoubleOrNull() ?: 0.0 }
-            val currency = incomeOnly.firstOrNull()?.account?.currency
+            HorizontalItem(
+                modifier = Modifier
+                    .background(LightGreen)
+                    .height(56.dp),
+                title = stringResource(R.string.myAccount_accountName),
+                contentUpper = myAccountState.account?.name,
+            )
 
-            val formattedTotal = "%,.2f %s".format(totalIncome, currency)
+            HorizontalDivider(
+                thickness = 1.dp,
+                color = outlineVariant
+            )
 
             HorizontalItem(
                 modifier = Modifier
                     .background(LightGreen)
                     .height(56.dp),
-                title = stringResource(R.string.income_sum),
-                contentUpper = formattedTotal,
-                showDivider = true,
+                title = stringResource(R.string.myAccount_balance),
+                emoji = "💰",
+                contentUpper = myAccountState.account?.balance,
             )
 
-            LazyColumn (
-                contentPadding = PaddingValues(bottom = 1.dp) // to show last divider
-            ){
-                items(incomeState.transactions.filter { it.category.isIncome }) { item ->
-                    HorizontalItem(
-                        modifier = Modifier.height(70.dp),
-                        emoji = item.category.emoji,
-                        title = item.category.name,
-                        subtitle = item.comment,
-                        contentUpper = "${item.amount} ${item.account.currency}",
-                        icon = R.drawable.ic_arrow_detail,
-                        showDivider = true,
-                    )
-                }
+            HorizontalDivider(
+                thickness = 1.dp,
+                color = outlineVariant
+            )
+
+            var showCurrencyBottomSheet by remember { mutableStateOf(false) }
+
+            HorizontalItem(
+                modifier = Modifier
+                    .background(LightGreen)
+                    .height(56.dp),
+                title = stringResource(R.string.myAccount_currency),
+                contentUpper = myAccountState.account?.currency,
+                icon =  R.drawable.ic_arrow_detail,
+                onClick = { showCurrencyBottomSheet = true },
+            )
+
+            if (showCurrencyBottomSheet) {
+                CurrencyBottomSheet(
+                    onCurrencySelected = { selectedOne ->
+                        viewModel.putAccountByIdCurrency(selectedOne)
+                        showCurrencyBottomSheet = false
+                    },
+                    onDismiss = { showCurrencyBottomSheet = false }
+                )
             }
 
-            if (incomeState.isLoading) {
+            if (myAccountState.isLoading) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center,

@@ -1,9 +1,13 @@
 package com.example.financetracker.data.api
 
+import com.example.financetracker.data.api.model.AccountModel
 import com.example.financetracker.data.api.model.AccountResponseModel
+import com.example.financetracker.data.api.model.AccountUpdateRequestModel
 import com.example.financetracker.data.api.model.CategoryModel
 import com.example.financetracker.data.api.model.TransactionModel
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -28,4 +32,10 @@ interface ApiService {
 
     @GET("categories")
     suspend fun getAllCategories(): List<CategoryModel>
+
+    @PUT("accounts/{id}")
+    suspend fun putAccountById(
+        @Path("id") id: Int,
+        @Body body: AccountUpdateRequestModel
+    ): AccountModel
 }

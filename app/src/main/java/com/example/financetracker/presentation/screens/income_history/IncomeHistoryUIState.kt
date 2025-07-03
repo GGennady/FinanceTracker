@@ -1,11 +1,11 @@
-package com.example.financetracker.presentation.screens.ExpensesHistoryScreen
+package com.example.financetracker.presentation.screens.income_history
 
 import com.example.financetracker.utils.Result
 import com.example.financetracker.data.api.model.TransactionModel
 import java.time.LocalDate
 
 /**
- * UI state data class for the ExpressHistoryScreen.
+ * UI state data class for the IncomeHistoryScreen.
  *
  * Represents the loading state, list of transactions, selected date range, and possible error.
  *
@@ -15,7 +15,7 @@ import java.time.LocalDate
  * @property startDate The start date of the selected period.
  * @property endDate The end date of the selected period.
  */
-data class ExpensesHistoryUIState(
+data class IncomeHistoryUIState(
     val isLoading: Boolean = false,
     val transactions: List<TransactionModel> = emptyList(),
     val error: Result.Error? = null,

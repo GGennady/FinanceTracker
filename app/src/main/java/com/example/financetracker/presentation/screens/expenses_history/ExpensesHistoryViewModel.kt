@@ -1,4 +1,4 @@
-package com.example.financetracker.presentation.screens.IncomeHistoryScreen
+package com.example.financetracker.presentation.screens.expenses_history
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -13,34 +13,34 @@ import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 /**
- * ViewModel for managing the IncomeHistoryScreen logic.
+ * ViewModel for managing the ExpenseHistoryScreen logic.
  *
  * Fetches transactions from the repository and shows UI state.
  *
  * @property repository The repository providing access to data.
  */
 @HiltViewModel
-class IncomeHistoryViewModel @Inject constructor(private val repository: FinanceRepository): ViewModel() {
+class ExpensesHistoryViewModel @Inject constructor(private val repository: FinanceRepository): ViewModel() {
 
-    private val _incomeHistoryState = mutableStateOf(IncomeHistoryUIState(isLoading = true))
-    val incomeHistoryState: State<IncomeHistoryUIState> = _incomeHistoryState
+    private val _expensesHistoryState = mutableStateOf(ExpensesHistoryUIState(isLoading = true))
+    val expensesHistoryState: State<ExpensesHistoryUIState> = _expensesHistoryState
 
-    fun getAllIncomeHistory(startDate: String? = null, endDate: String? = null) {
+    fun getAllExpensesHistory(startDate: String? = null, endDate: String? = null) {
         viewModelScope.launch {
-            _incomeHistoryState.value = _incomeHistoryState.value.copy(isLoading = true)
+            _expensesHistoryState.value = _expensesHistoryState.value.copy(isLoading = true)
 
             val result = repository.getAllTransactions(
                 startDate = startDate,
                 endDate = endDate
             )
 
-            _incomeHistoryState.value = when (result) {
-                is Result.Success -> _incomeHistoryState.value.copy(
+            _expensesHistoryState.value = when (result) {
+                is Result.Success -> _expensesHistoryState.value.copy(
                     transactions = result.data,
                     isLoading = false,
                     error = null
                 )
-                is Result.Error -> _incomeHistoryState.value.copy(
+                is Result.Error -> _expensesHistoryState.value.copy(
                     isLoading = false,
                     error = result
                 )
@@ -49,28 +49,28 @@ class IncomeHistoryViewModel @Inject constructor(private val repository: Finance
     }
 
     fun setStartDate(date: LocalDate) {
-        _incomeHistoryState.value = _incomeHistoryState.value.copy(startDate = date)
+        _expensesHistoryState.value = _expensesHistoryState.value.copy(startDate = date)
         tryFetchIfBothDatesSelected()
     }
 
     fun setEndDate(date: LocalDate) {
-        _incomeHistoryState.value = _incomeHistoryState.value.copy(endDate = date)
+        _expensesHistoryState.value = _expensesHistoryState.value.copy(endDate = date)
         tryFetchIfBothDatesSelected()
     }
 
     private fun tryFetchIfBothDatesSelected() {
-        val start = _incomeHistoryState.value.startDate
-        val end = _incomeHistoryState.value.endDate
+        val start = _expensesHistoryState.value.startDate
+        val end = _expensesHistoryState.value.endDate
 
         if (start != null && end != null) {
             if (start.isAfter(end)) {
-                _incomeHistoryState.value = _incomeHistoryState.value.copy(
+                _expensesHistoryState.value = _expensesHistoryState.value.copy(
                     error = Result.Error.CalendarError
                 )
             }
 
             val formatter = DateTimeFormatter.ISO_LOCAL_DATE
-            getAllIncomeHistory(
+            getAllExpensesHistory(
                 startDate = start.format(formatter),
                 endDate = end.format(formatter)
             )
@@ -78,6 +78,6 @@ class IncomeHistoryViewModel @Inject constructor(private val repository: Finance
     }
 
     fun clearError() {
-        _incomeHistoryState.value = _incomeHistoryState.value.copy(error = null)
+        _expensesHistoryState.value = _expensesHistoryState.value.copy(error = null)
     }
 }
