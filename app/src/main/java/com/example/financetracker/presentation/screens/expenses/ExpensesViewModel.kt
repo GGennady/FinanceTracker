@@ -49,6 +49,5 @@ class ExpensesViewModel @Inject constructor(private val repository: FinanceRepos
     fun clearError() {
         _expensesState.value = _expensesState.value.copy(error = null)
     }
-
 }
 

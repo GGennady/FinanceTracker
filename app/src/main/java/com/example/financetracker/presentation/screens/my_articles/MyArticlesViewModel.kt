@@ -4,6 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.financetracker.data.api.model.CategoryModel
 import com.example.financetracker.utils.Result
 import com.example.financetracker.domain.FinanceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -41,6 +42,14 @@ class MyArticlesViewModel @Inject constructor(private val repository: FinanceRep
                     error = result
                 )
             }
+        }
+    }
+
+    var searchQuery = mutableStateOf("")
+
+    fun getFilteredCategories(): List<CategoryModel> {
+        return _articlesState.value.categories.filter {
+            it.name.contains(searchQuery.value, ignoreCase = true)
         }
     }
 

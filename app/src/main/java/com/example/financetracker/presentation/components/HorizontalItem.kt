@@ -1,5 +1,6 @@
 package com.example.financetracker.presentation.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -34,7 +35,7 @@ fun HorizontalItem(
     subtitle: String? = null,
     contentUpper: String? = null,
     contentLower: String? = null,
-    icon: Int? = null,
+    @DrawableRes icon: Int? = null,
     showDivider: Boolean = false,
     onClick: (() -> Unit)? = null,
 ) {

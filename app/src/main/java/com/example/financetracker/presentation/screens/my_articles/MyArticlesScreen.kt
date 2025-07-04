@@ -32,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
 import com.example.financetracker.presentation.components.HandleErrors
+import com.example.financetracker.presentation.components.HorizontalItemWithEditText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -71,20 +72,22 @@ fun MyArticlesScreen(
                 ),
             )
 
-            HorizontalItem(
+            val searchQuery = viewModel.searchQuery
+            HorizontalItemWithEditText(
                 modifier = Modifier
                     .background(surfaceContainerHigh)
                     .height(56.dp),
                 title = stringResource(R.string.myArticles_search),
                 titleColor = onSurfaceVariant,
-                icon = R.drawable.ic_search,
+                textFieldData = searchQuery,
                 showDivider = true,
             )
 
+            val filteredCategories = viewModel.getFilteredCategories()
             LazyColumn (
                 contentPadding = PaddingValues(bottom = 1.dp) // to show last divider
             ){
-                items(myArticlesState.categories) { item ->
+                items(filteredCategories) { item ->
                     HorizontalItem(
                         modifier = Modifier.height(70.dp),
                         emoji = item.emoji,

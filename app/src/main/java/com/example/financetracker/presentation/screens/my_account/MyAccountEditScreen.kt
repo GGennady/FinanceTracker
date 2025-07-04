@@ -92,7 +92,7 @@ fun MyAccountEditScreen(
             HorizontalItemWithEditText(
                 modifier = Modifier
                     .background(LightGreen)
-                    .height(72.dp),
+                    .height(56.dp),
                 title = stringResource(R.string.myAccount_accountName),
                 textFieldData = nameState,
                 showDivider = true,
@@ -101,7 +101,7 @@ fun MyAccountEditScreen(
             HorizontalItemWithEditText(
                 modifier = Modifier
                     .background(LightGreen)
-                    .height(72.dp),
+                    .height(56.dp),
                 title = stringResource(R.string.myAccount_balance),
                 textFieldData = balanceState,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),

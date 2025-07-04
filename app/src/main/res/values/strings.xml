@@ -28,4 +28,8 @@
     <string name="settings_syncronization">Синхронизация</string>
     <string name="settings_language">Язык</string>
     <string name="settings_about">О программе</string>
+    <string name="currencyBottomSheet_rub">Российский рубль (₽)</string>
+    <string name="currencyBottomSheet_usd">Американский доллар ($)</string>
+    <string name="currencyBottomSheet_eur">Евро (€)</string>
+    <string name="currencyBottomSheet_dismiss">Отмена</string>
 </resources>
