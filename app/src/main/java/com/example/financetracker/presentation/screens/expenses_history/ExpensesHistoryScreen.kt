@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBarDefaults
@@ -26,7 +25,6 @@ import com.example.financetracker.presentation.navigation.Screen
 import com.example.financetracker.ui.theme.Green
 import com.example.financetracker.ui.theme.LightGreen
 import com.example.financetracker.ui.theme.onSurface
-import com.example.financetracker.ui.theme.outlineVariant
 import com.example.financetracker.ui.theme.surface
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -120,12 +118,8 @@ fun ExpensesHistoryScreen(
                 title = stringResource(R.string.expensesHistory_startDate),
                 contentUpper = startDate?.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) ?: stringResource(R.string.historyScreens_chooseDate),
                 icon = R.drawable.ic_arrow_detail,
+                showDivider = true,
                 onClick = { showStartPicker = true },
-            )
-
-            HorizontalDivider(
-                thickness = 1.dp,
-                color = outlineVariant
             )
 
             HorizontalItem(
@@ -135,12 +129,8 @@ fun ExpensesHistoryScreen(
                 title = stringResource(R.string.expensesHistory_endDate),
                 contentUpper = endDate?.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) ?: stringResource(R.string.historyScreens_chooseDate),
                 icon = R.drawable.ic_arrow_detail,
+                showDivider = true,
                 onClick = { showEndPicker = true },
-            )
-
-            HorizontalDivider(
-                thickness = 1.dp,
-                color = outlineVariant
             )
 
             val expensesHistoryOnly = expensesHistoryState.transactions.filter { !it.category.isIncome }

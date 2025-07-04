@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.financetracker.ui.theme.Dismiss
 import com.example.financetracker.ui.theme.Transparent
+import com.example.financetracker.ui.theme.White
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,6 +58,7 @@ fun CurrencyBottomSheet(
                     .background(Dismiss)
                     .height(56.dp),
                 title = "Отмена",
+                titleColor = White,
                 onClick = onDismiss,
                 showDivider = true,
             )

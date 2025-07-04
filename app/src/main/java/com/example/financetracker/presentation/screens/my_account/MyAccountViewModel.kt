@@ -87,6 +87,9 @@ class MyAccountViewModel @Inject constructor(private val repository: FinanceRepo
                     error = result
                 )
             }
+            if (result is Result.Success) {
+                getAccountById()
+            }
         }
     }
 

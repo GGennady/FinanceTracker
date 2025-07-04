@@ -5,18 +5,19 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.financetracker.presentation.screens.expenses_history.ExpensesHistoryScreen
-import com.example.financetracker.presentation.screens.expenses.ExpensesScreen
+import com.example.financetracker.presentation.navigation.graphs.ExpensesGraph
+import com.example.financetracker.presentation.navigation.graphs.expensesGraph
+import com.example.financetracker.presentation.navigation.graphs.incomeGraph
+import com.example.financetracker.presentation.navigation.graphs.myAccountGraph
 import com.example.financetracker.presentation.screens.income_history.IncomeHistoryScreen
 import com.example.financetracker.presentation.screens.Income.IncomeScreen
 import com.example.financetracker.presentation.screens.my_account.MyAccountScreen
 import com.example.financetracker.presentation.screens.my_articles.MyArticlesScreen
 import com.example.financetracker.presentation.screens.SettingsScreen
+import com.example.financetracker.presentation.screens.my_account.MyAccountEditScreen
 import kotlinx.serialization.Serializable
 
 /**
- * Navigation destinations.
- *
  * Represents each screen in the app using a sealed class hierarchy for type-safe navigation.
  */
 sealed class Screen {
@@ -40,6 +41,9 @@ sealed class Screen {
 
     @Serializable
     data object IncomeHistory: Screen()
+
+    @Serializable
+    data object MyAccountEditScreen: Screen()
 }
 
 @Composable
@@ -50,34 +54,20 @@ fun Navigation(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = Screen.Expenses
+        startDestination = ExpensesGraph
     ) {
-        composable<Screen.Expenses> {
-            ExpensesScreen( { screen -> navController.navigate(screen) } )
-        }
-        composable<Screen.Income> {
-            IncomeScreen( { screen -> navController.navigate(screen) } )
-        }
-        composable<Screen.MyAccount> {
-            MyAccountScreen ( { screen -> navController.navigate(screen) } )
-        }
+        expensesGraph(navController)
+
+        incomeGraph(navController)
+
+        myAccountGraph(navController)
+
         composable<Screen.MyArticles> {
             MyArticlesScreen ( { screen -> navController.navigate(screen) } )
         }
+
         composable<Screen.Settings> {
             SettingsScreen { screen -> navController.navigate(screen) }
-        }
-        composable<Screen.ExpensesHistory> {
-            ExpensesHistoryScreen(
-                onBackClick = { navController.popBackStack() },
-                onNavigateTo = { screen -> navController.navigate(screen) },
-            )
-        }
-        composable<Screen.IncomeHistory> {
-            IncomeHistoryScreen(
-                onBackClick = { navController.popBackStack() },
-                onNavigateTo = { screen -> navController.navigate(screen) },
-            )
         }
     }
 }
