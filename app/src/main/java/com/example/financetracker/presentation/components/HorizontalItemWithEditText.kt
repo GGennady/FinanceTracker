@@ -72,8 +72,8 @@ fun HorizontalItemWithEditText(
                     textStyle = Typography.bodyMedium,
                     keyboardOptions = keyboardOptions ?: KeyboardOptions.Default,
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = Green,
                         unfocusedBorderColor = outlineVariant,
+                        focusedBorderColor = Green,
                         cursorColor = Green,
                         focusedLabelColor = Green,
                     )
