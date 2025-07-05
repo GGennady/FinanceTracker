@@ -135,7 +135,7 @@ fun IncomeHistoryScreen(
 
             val expensesHistoryOnly = incomeHistoryState.transactions.filter { it.category.isIncome }
             val totalExpensesHistory =  expensesHistoryOnly.sumOf { transaction -> transaction.amount.toDoubleOrNull() ?: 0.0 }
-            val currency =  expensesHistoryOnly.firstOrNull()?.account?.currency
+            val currency =  expensesHistoryOnly.firstOrNull()?.account?.currency ?: ""
 
             val formattedTotal = "%,.2f %s".format(totalExpensesHistory, currency)
 

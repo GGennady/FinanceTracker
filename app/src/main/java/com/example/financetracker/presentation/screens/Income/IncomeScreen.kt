@@ -82,7 +82,7 @@ fun IncomeScreen(
 
             val incomeOnly = incomeState.transactions.filter { it.category.isIncome }
             val totalIncome = incomeOnly.sumOf { transaction -> transaction.amount.toDoubleOrNull() ?: 0.0 }
-            val currency = incomeOnly.firstOrNull()?.account?.currency
+            val currency = incomeOnly.firstOrNull()?.account?.currency ?: ""
 
             val formattedTotal = "%,.2f %s".format(totalIncome, currency)
 

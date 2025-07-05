@@ -83,7 +83,7 @@ fun ExpensesScreen(
 
             val expensesOnly = expensesState.transactions.filter { !it.category.isIncome }
             val totalExpenses = expensesOnly.sumOf { transaction -> transaction.amount.toDoubleOrNull() ?: 0.0 }
-            val currency = expensesOnly.firstOrNull()?.account?.currency
+            val currency = expensesOnly.firstOrNull()?.account?.currency ?: ""
 
             val formattedTotal = "%,.2f %s".format(totalExpenses, currency)
 
