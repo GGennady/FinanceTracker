@@ -1,6 +1,8 @@
 package com.example.financetracker.domain
 
+import com.example.financetracker.data.api.model.AccountModel
 import com.example.financetracker.data.api.model.AccountResponseModel
+import com.example.financetracker.data.api.model.AccountUpdateRequestModel
 import com.example.financetracker.data.api.model.CategoryModel
 import com.example.financetracker.data.api.model.TransactionModel
 import com.example.financetracker.utils.Result
@@ -11,9 +13,11 @@ import com.example.financetracker.utils.Result
  * Abstracts data sources and defines operations for transactions, accounts, and categories.
  */
 interface FinanceRepository {
-    suspend fun getAllTransactions(accountId: Int, startDate: String? = null, endDate: String? = null): Result<List<TransactionModel>>
+    suspend fun getAllTransactions(startDate: String? = null, endDate: String? = null): Result<List<TransactionModel>>
 
-    suspend fun getAccountById(id: Int): Result<AccountResponseModel>
+    suspend fun getAccountById(): Result<AccountResponseModel>
 
     suspend fun getAllCategories(): Result<List<CategoryModel>>
+
+    suspend fun putAccountById(name: String, balance: String, currency: String): Result<AccountModel>
 }

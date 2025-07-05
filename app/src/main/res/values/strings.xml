@@ -16,8 +16,9 @@
     <string name="incomeHistory_topbar">Моя история</string>
     <string name="historyScreens_chooseDate">Выбрать дату</string>
     <string name="myAccount_topbar">Мой счет</string>
-    <string name="myAccount_balance">Баланс</string>
-    <string name="myAccount_currency">Валюта</string>
+    <string name="myAccount_accountName">Название счета:</string>
+    <string name="myAccount_balance">Баланс:</string>
+    <string name="myAccount_currency">Валюта:</string>
     <string name="myArticles_topbar">Мои статьи</string>
     <string name="myArticles_search">Найти статью</string>
     <string name="settings_mainScreen">Основной экран</string>
@@ -27,4 +28,8 @@
     <string name="settings_syncronization">Синхронизация</string>
     <string name="settings_language">Язык</string>
     <string name="settings_about">О программе</string>
+    <string name="currencyBottomSheet_rub">Российский рубль (₽)</string>
+    <string name="currencyBottomSheet_usd">Американский доллар ($)</string>
+    <string name="currencyBottomSheet_eur">Евро (€)</string>
+    <string name="currencyBottomSheet_dismiss">Отмена</string>
 </resources>

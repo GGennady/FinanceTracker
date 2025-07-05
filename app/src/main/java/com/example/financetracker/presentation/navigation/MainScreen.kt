@@ -1,6 +1,5 @@
 package com.example.financetracker.presentation.navigation
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
@@ -11,22 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import com.example.financetracker.R
+import com.example.financetracker.presentation.navigation.bottom_bar.BottomBar
 import com.example.financetracker.ui.theme.surface
-
-data class BottomBarItem(
-    val screen: Screen,
-    val title: String,
-    @DrawableRes val iconResId: Int
-)
-val bottomBarItems = listOf(
-    BottomBarItem(Screen.Expenses, "Расходы", R.drawable.ic_expenses),
-    BottomBarItem(Screen.Income, "Доходы", R.drawable.ic_income),
-    BottomBarItem(Screen.MyAccount, "Счет", R.drawable.ic_myaccount),
-    BottomBarItem(Screen.MyArticles, "Статьи", R.drawable.ic_myarticles),
-    BottomBarItem(Screen.Settings, "Настройки", R.drawable.ic_settings)
-)
-
 
 @Composable
 fun MainScreen() {
@@ -35,7 +20,7 @@ fun MainScreen() {
     Scaffold(
         modifier = Modifier,
         bottomBar = {
-            BottomBar(navController = navController, items = bottomBarItems)
+            BottomBar(navController = navController)
         },
         containerColor = surface,
 

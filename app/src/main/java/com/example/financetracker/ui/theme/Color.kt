@@ -17,6 +17,8 @@ val Grey = Color(0xFFECE6F0)
 val BarsGrey = Color(0xFFF3EDF7)
 val Subtitile = Color(0xFF8F8F8F)
 val Black = Color(0xFF000000)
+val Transparent = Color(0x00000000)
+val Dismiss = Color(0xFFE46962)
 
 val surface = Color(0xFFFEF7FF)
 val outlineVariant = Color(0xFFCAC4D0)
