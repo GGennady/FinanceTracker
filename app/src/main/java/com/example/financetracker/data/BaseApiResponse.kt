@@ -1,13 +1,13 @@
 package com.example.financetracker.data
 
 import android.util.Log
-import com.example.financetracker.utils.NetworkMonitor
 import com.example.financetracker.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
+import javax.inject.Inject
 
 /**
  * Base class for handling API responses with retry and error handling logic.
@@ -16,7 +16,7 @@ import java.io.IOException
  *
  * @property networkMonitor Used to check network availability before making a request.
  */
-abstract class BaseApiResponse (protected val networkMonitor: NetworkMonitor) {
+abstract class BaseApiResponse(protected val networkMonitor: NetworkMonitor) {
 
     private val retryableStatusCodes = setOf(500)
 

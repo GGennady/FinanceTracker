@@ -1,7 +1,7 @@
 package com.example.financetracker.data.repository
 
 import com.example.financetracker.data.AccountIdStorage
-import com.example.financetracker.utils.NetworkMonitor
+import com.example.financetracker.data.NetworkMonitor
 import com.example.financetracker.data.BaseApiResponse
 import com.example.financetracker.utils.Result
 import com.example.financetracker.data.api.ApiService
@@ -22,6 +22,7 @@ import javax.inject.Inject
  * @property api The API service used for network requests.
  * @constructor Injects ApiService and NetworkMonitor dependencies.
  */
+
 class FinanceRepositoryImpl @Inject constructor(
     private val api: ApiService,
     networkMonitor: NetworkMonitor,

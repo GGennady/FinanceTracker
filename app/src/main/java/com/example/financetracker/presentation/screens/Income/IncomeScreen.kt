@@ -22,8 +22,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.financetracker.R
+import com.example.financetracker.presentation.LocalViewModelFactory
 import com.example.financetracker.presentation.components.HandleErrors
 import com.example.financetracker.presentation.components.HorizontalItem
 import com.example.financetracker.presentation.components.PlusFloatingActionButton
@@ -40,8 +41,8 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun IncomeScreen(
     onNavigateTo: (Screen) -> Unit,
-    viewModel: IncomeViewModel = hiltViewModel(),
 ) {
+    val viewModel: IncomeViewModel = viewModel(factory = LocalViewModelFactory.current)
 
     val incomeState by viewModel.incomeState
 

@@ -7,7 +7,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 
     id("com.google.devtools.ksp")
-    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -85,10 +84,9 @@ dependencies {
     // Splash Screen
     implementation("androidx.core:core-splashscreen:1.0.1")
 
-    // Hilt
-    ksp("com.google.dagger:hilt-android-compiler:2.56.2")
-    implementation("com.google.dagger:hilt-android:2.56.2")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    // Dagger 2
+    ksp("com.google.dagger:dagger-compiler:2.56.2")
+    implementation("com.google.dagger:dagger:2.56.2")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
