@@ -1,4 +1,4 @@
-package com.example.financetracker.di
+package com.example.financetracker.di.app_component
 
 import okhttp3.Interceptor
 import okhttp3.Protocol

@@ -1,10 +1,9 @@
-package com.example.financetracker.di
+package com.example.financetracker.di.app_component
 
 import com.example.financetracker.data.api.ApiService
+import com.example.financetracker.di.app_component.AuthInterceptor
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,18 +17,13 @@ import javax.inject.Singleton
  * ...and the API service interface.
  */
 @Module
-@InstallIn(SingletonComponent::class)
-object ApiModule {
+class RetrofitClientModule {
 
     @Singleton
     @Provides
-    fun provideAuthInterceptor(): AuthInterceptor = AuthInterceptor()
-
-    @Singleton
-    @Provides
-    fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
+    fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(authInterceptor)
+            .addInterceptor(AuthInterceptor())
             .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }).build()
     }
 

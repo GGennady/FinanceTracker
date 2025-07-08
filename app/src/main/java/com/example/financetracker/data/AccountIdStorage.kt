@@ -4,14 +4,13 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class AccountIdStorage @Inject constructor(@ApplicationContext val context: Context) {
+class AccountIdStorage @Inject constructor(private val context: Context) {
     private val Context.dataStore by preferencesDataStore(name = "account_id_datastore")
 
     companion object {

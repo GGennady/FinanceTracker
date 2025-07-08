@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.financetracker.R
 import com.example.financetracker.presentation.components.HorizontalItem
 import com.example.financetracker.presentation.components.TopBar
@@ -31,15 +30,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.financetracker.presentation.LocalViewModelFactory
 import com.example.financetracker.presentation.components.HandleErrors
 import com.example.financetracker.presentation.components.HorizontalItemWithEditText
+import com.example.financetracker.presentation.screens.expenses.ExpensesViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyArticlesScreen(
     onNavigateTo: (Screen) -> Unit,
-    viewModel: MyArticlesViewModel = hiltViewModel()
 ) {
+
+    val viewModel: MyArticlesViewModel = viewModel(factory = LocalViewModelFactory.current)
 
     val myArticlesState by viewModel.articlesState
 

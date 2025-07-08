@@ -20,8 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.financetracker.R
+import com.example.financetracker.presentation.LocalViewModelFactory
 import com.example.financetracker.presentation.components.CurrencyBottomSheet
 import com.example.financetracker.presentation.components.HandleErrors
 import com.example.financetracker.presentation.components.HorizontalItem
@@ -36,8 +37,9 @@ import com.example.financetracker.ui.theme.surface
 @Composable
 fun MyAccountScreen(
     onNavigateTo: (Screen) -> Unit,
-    viewModel: MyAccountViewModel = hiltViewModel()
 ) {
+
+    val viewModel: MyAccountViewModel = viewModel(factory = LocalViewModelFactory.current)
 
     val myAccountState by viewModel.accountState
 

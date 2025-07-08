@@ -21,8 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.financetracker.R
+import com.example.financetracker.presentation.LocalViewModelFactory
 import com.example.financetracker.presentation.components.HandleErrors
 import com.example.financetracker.presentation.components.HorizontalItemWithEditText
 import com.example.financetracker.presentation.components.TopBar
@@ -38,8 +39,9 @@ fun MyAccountEditScreen(
     onNavigateTo: (Screen) -> Unit,
     onBackClick: () -> Unit,
     onApplyClick: (Screen) -> Unit,
-    viewModel: MyAccountViewModel = hiltViewModel(),
 ) {
+
+    val viewModel: MyAccountViewModel = viewModel(factory = LocalViewModelFactory.current)
 
     val myAccountState by viewModel.accountState
 

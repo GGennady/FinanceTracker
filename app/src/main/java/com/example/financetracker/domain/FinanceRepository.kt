@@ -2,7 +2,6 @@ package com.example.financetracker.domain
 
 import com.example.financetracker.data.api.model.AccountModel
 import com.example.financetracker.data.api.model.AccountResponseModel
-import com.example.financetracker.data.api.model.AccountUpdateRequestModel
 import com.example.financetracker.data.api.model.CategoryModel
 import com.example.financetracker.data.api.model.TransactionModel
 import com.example.financetracker.utils.Result

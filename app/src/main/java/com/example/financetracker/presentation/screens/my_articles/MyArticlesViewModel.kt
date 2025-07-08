@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.financetracker.data.api.model.CategoryModel
 import com.example.financetracker.utils.Result
 import com.example.financetracker.domain.FinanceRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,7 +17,6 @@ import javax.inject.Inject
  *
  * @property repository The repository providing access to data.
  */
-@HiltViewModel
 class MyArticlesViewModel @Inject constructor(private val repository: FinanceRepository): ViewModel() {
 
     private val _articlesState = mutableStateOf(MyArticlesUIState(isLoading = true))

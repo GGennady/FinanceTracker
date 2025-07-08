@@ -1,12 +1,22 @@
 package com.example.financetracker
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import com.example.financetracker.di.app_component.AppComponent
+import com.example.financetracker.di.app_component.DaggerAppComponent
 
-/**
- * The application class for the Finance Tracker app.
- *
- * Initializes Hilt for DI.
- */
-@HiltAndroidApp
-class FinanceTrackerApp: Application()
+class FinanceTrackerApp: Application() {
+
+    lateinit var appComponent: AppComponent
+
+    override fun onCreate() {
+        super.onCreate()
+
+        appComponent = DaggerAppComponent.factory().create(this)
+    }
+}
+
+//val Context.appComponent: AppComponent
+//    get() = when(this) {
+//        is FinanceTrackerApp -> this.appComponent
+//        else -> (this.applicationContext as FinanceTrackerApp).appComponent
+//    }

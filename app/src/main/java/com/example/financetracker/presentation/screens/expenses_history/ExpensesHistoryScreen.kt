@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.financetracker.R
 import com.example.financetracker.presentation.components.HorizontalItem
 import com.example.financetracker.presentation.components.TopBar
@@ -32,6 +31,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.financetracker.presentation.LocalViewModelFactory
 import com.example.financetracker.utils.DateConverter
 import com.example.financetracker.presentation.components.CustomDatePicker
 import com.example.financetracker.presentation.components.HandleErrors
@@ -43,8 +44,9 @@ import java.time.format.DateTimeFormatter
 fun ExpensesHistoryScreen(
     onNavigateTo: (Screen) -> Unit,
     onBackClick: () -> Unit,
-    viewModel: ExpensesHistoryViewModel = hiltViewModel(),
 ) {
+
+    val viewModel: ExpensesHistoryViewModel = viewModel(factory = LocalViewModelFactory.current)
 
     val expensesHistoryState by viewModel.expensesHistoryState
 
