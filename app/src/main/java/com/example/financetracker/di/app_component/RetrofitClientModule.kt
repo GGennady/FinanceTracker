@@ -1,6 +1,7 @@
-package com.example.financetracker.di.retrofit_module
+package com.example.financetracker.di.app_component
 
 import com.example.financetracker.data.api.ApiService
+import com.example.financetracker.di.app_component.AuthInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

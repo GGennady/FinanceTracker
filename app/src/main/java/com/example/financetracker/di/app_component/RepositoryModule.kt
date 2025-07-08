@@ -1,4 +1,4 @@
-package com.example.financetracker.di
+package com.example.financetracker.di.app_component
 
 import com.example.financetracker.data.repository.FinanceRepositoryImpl
 import com.example.financetracker.domain.FinanceRepository

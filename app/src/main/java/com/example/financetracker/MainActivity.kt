@@ -11,8 +11,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.core.view.WindowCompat
-import com.example.financetracker.di.components.DaggerMainActivityComponent
-import com.example.financetracker.di.components.MainActivityComponent
+import com.example.financetracker.di.mainactivity_component.DaggerMainActivityComponent
+import com.example.financetracker.di.mainactivity_component.MainActivityComponent
 import com.example.financetracker.presentation.LocalViewModelFactory
 import com.example.financetracker.presentation.navigation.MainScreen
 import com.example.financetracker.presentation.screens.SplashScreen

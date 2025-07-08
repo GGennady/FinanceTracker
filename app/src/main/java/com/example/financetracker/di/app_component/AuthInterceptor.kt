@@ -1,4 +1,4 @@
-package com.example.financetracker.di.retrofit_module
+package com.example.financetracker.di.app_component
 
 import com.example.financetracker.BuildConfig
 import okhttp3.Interceptor

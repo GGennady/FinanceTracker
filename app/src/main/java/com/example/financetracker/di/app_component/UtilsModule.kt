@@ -1,4 +1,4 @@
-package com.example.financetracker.di
+package com.example.financetracker.di.app_component
 
 import android.content.Context
 import com.example.financetracker.data.AccountIdStorage

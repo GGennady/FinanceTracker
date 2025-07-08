@@ -1,4 +1,4 @@
-package com.example.financetracker.di
+package com.example.financetracker.di.mainactivity_component
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

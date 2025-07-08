@@ -1,9 +1,9 @@
-package com.example.financetracker.di.components
+package com.example.financetracker.di.app_component
 
 import android.content.Context
-import com.example.financetracker.di.RepositoryModule
-import com.example.financetracker.di.UtilsModule
-import com.example.financetracker.di.retrofit_module.RetrofitClientModule
+import com.example.financetracker.di.app_component.RepositoryModule
+import com.example.financetracker.di.app_component.UtilsModule
+import com.example.financetracker.di.app_component.RetrofitClientModule
 import com.example.financetracker.domain.FinanceRepository
 import dagger.BindsInstance
 import dagger.Component

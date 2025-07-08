@@ -1,8 +1,8 @@
 package com.example.financetracker
 
 import android.app.Application
-import com.example.financetracker.di.components.AppComponent
-import com.example.financetracker.di.components.DaggerAppComponent
+import com.example.financetracker.di.app_component.AppComponent
+import com.example.financetracker.di.app_component.DaggerAppComponent
 
 class FinanceTrackerApp: Application() {
 
