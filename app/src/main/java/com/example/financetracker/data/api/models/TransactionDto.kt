@@ -1,16 +1,16 @@
-package com.example.financetracker.data.api.model
+package com.example.financetracker.data.api.models
 
 import com.google.gson.annotations.SerializedName
 
-data class TransactionModel(
+data class TransactionDto(
     @SerializedName("id")
     val id: Int,
 
     @SerializedName("account")
-    val account: AccountBriefModel,
+    val account: AccountBriefDto,
 
     @SerializedName("category")
-    val category: CategoryModel,
+    val category: CategoryDto,
 
     @SerializedName("amount")
     val amount: String,

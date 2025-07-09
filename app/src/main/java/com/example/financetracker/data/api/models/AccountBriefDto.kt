@@ -1,8 +1,8 @@
-package com.example.financetracker.data.api.model
+package com.example.financetracker.data.api.models
 
 import com.google.gson.annotations.SerializedName
 
-data class AccountBriefModel(
+data class AccountBriefDto(
     @SerializedName("id")
     val id: Int,
 

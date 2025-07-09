@@ -4,9 +4,9 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.financetracker.data.api.model.CategoryModel
-import com.example.financetracker.utils.Result
 import com.example.financetracker.domain.FinanceRepository
+import com.example.financetracker.domain.models.Category
+import com.example.financetracker.utils.Result
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -45,7 +45,7 @@ class MyArticlesViewModel @Inject constructor(private val repository: FinanceRep
 
     var searchQuery = mutableStateOf("")
 
-    fun getFilteredCategories(): List<CategoryModel> {
+    fun getFilteredCategories(): List<Category> {
         return _articlesState.value.categories.filter {
             it.name.contains(searchQuery.value, ignoreCase = true)
         }

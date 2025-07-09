@@ -1,10 +1,13 @@
-package com.example.financetracker.data.api.model
+package com.example.financetracker.data.api.models
 
 import com.google.gson.annotations.SerializedName
 
-data class AccountResponseModel(
+data class AccountDto(
     @SerializedName("id")
     val id: Int,
+
+    @SerializedName("userId")
+    val userId: Int,
 
     @SerializedName("name")
     val name: String,
@@ -14,12 +17,6 @@ data class AccountResponseModel(
 
     @SerializedName("currency")
     val currency: String,
-
-    @SerializedName("incomeStats")
-    val incomeStats: List<StatItemModel>,
-
-    @SerializedName("expenseStats")
-    val expenseStats: List<StatItemModel>,
 
     @SerializedName("createdAt")
     val createdAt: String,

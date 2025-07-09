@@ -1,8 +1,8 @@
-package com.example.financetracker.data.api.model
+package com.example.financetracker.data.api.models
 
 import com.google.gson.annotations.SerializedName
 
-data class AccountUpdateRequestModel(
+data class AccountUpdateRequestDto(
     @SerializedName("name")
     val name: String,
 

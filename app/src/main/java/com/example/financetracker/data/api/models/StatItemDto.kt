@@ -1,8 +1,8 @@
-package com.example.financetracker.data.api.model
+package com.example.financetracker.data.api.models
 
 import com.google.gson.annotations.SerializedName
 
-data class StatItemModel(
+data class StatItemDto(
     @SerializedName("categoryId")
     val categoryId: Int,
 
