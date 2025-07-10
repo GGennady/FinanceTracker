@@ -5,7 +5,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
-import com.example.financetracker.utils.Result
+import com.example.financetracker.domain.Result
 
 @Composable
 fun HandleErrors(

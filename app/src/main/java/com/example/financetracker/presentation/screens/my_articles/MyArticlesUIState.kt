@@ -1,7 +1,7 @@
 package com.example.financetracker.presentation.screens.my_articles
 
 import com.example.financetracker.domain.models.Category
-import com.example.financetracker.utils.Result
+import com.example.financetracker.domain.Result
 
 /**
  * UI state data class for the My Articles screen.

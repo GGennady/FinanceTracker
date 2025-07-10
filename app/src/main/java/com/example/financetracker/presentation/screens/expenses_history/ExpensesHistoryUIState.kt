@@ -1,7 +1,7 @@
 package com.example.financetracker.presentation.screens.expenses_history
 
-import com.example.financetracker.domain.models.Transaction
-import com.example.financetracker.utils.Result
+import com.example.financetracker.domain.models.TransactionResponse
+import com.example.financetracker.domain.Result
 import java.time.LocalDate
 
 /**
@@ -17,7 +17,7 @@ import java.time.LocalDate
  */
 data class ExpensesHistoryUIState(
     val isLoading: Boolean = false,
-    val transactions: List<Transaction> = emptyList(),
+    val transactions: List<TransactionResponse> = emptyList(),
     val error: Result.Error? = null,
     val startDate: LocalDate? = null,
     val endDate: LocalDate? = null,

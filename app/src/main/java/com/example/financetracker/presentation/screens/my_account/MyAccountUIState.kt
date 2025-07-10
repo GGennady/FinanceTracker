@@ -2,7 +2,7 @@ package com.example.financetracker.presentation.screens.my_account
 
 import com.example.financetracker.domain.models.Account
 import com.example.financetracker.domain.models.AccountResponse
-import com.example.financetracker.utils.Result
+import com.example.financetracker.domain.Result
 
 /**
  * UI state data class for the My Account screen.

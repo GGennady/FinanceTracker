@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.financetracker.domain.FinanceRepository
 import com.example.financetracker.domain.models.Category
-import com.example.financetracker.utils.Result
+import com.example.financetracker.domain.Result
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
