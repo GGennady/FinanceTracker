@@ -6,17 +6,15 @@ import com.example.financetracker.data.NetworkMonitor
 import com.example.financetracker.data.api.ApiService
 import com.example.financetracker.data.api.mappers.toData
 import com.example.financetracker.data.api.mappers.toDomain
-import com.example.financetracker.data.api.models.AccountUpdateRequestDto
-import com.example.financetracker.data.api.models.TransactionRequestDto
 import com.example.financetracker.domain.FinanceRepository
+import com.example.financetracker.domain.Result
 import com.example.financetracker.domain.models.Account
 import com.example.financetracker.domain.models.AccountResponse
-import com.example.financetracker.domain.models.Category
-import com.example.financetracker.domain.models.TransactionResponse
-import com.example.financetracker.domain.Result
 import com.example.financetracker.domain.models.AccountUpdateRequest
+import com.example.financetracker.domain.models.Category
 import com.example.financetracker.domain.models.Transaction
 import com.example.financetracker.domain.models.TransactionRequest
+import com.example.financetracker.domain.models.TransactionResponse
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 

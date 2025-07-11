@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
@@ -17,20 +16,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.financetracker.domain.FinanceRepository
-import com.example.financetracker.domain.Result
 import com.example.financetracker.domain.models.Category
-import com.example.financetracker.presentation.LocalViewModelFactory
 import com.example.financetracker.presentation.navigation.TransactionType
 import com.example.financetracker.presentation.screens.add_or_edit_transaction.AddOrEditTransactionViewModel
 import com.example.financetracker.ui.theme.Green
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,7 +47,7 @@ fun CategoryBottomSheet(
     val filteredCategories = state.categories.filter {
         when(type) {
             TransactionType.EXPENSES -> !it.isIncome
-            TransactionType.INCOME -> !it.isIncome
+            TransactionType.INCOME -> it.isIncome
         }
     }
 

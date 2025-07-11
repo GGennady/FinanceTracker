@@ -1,7 +1,7 @@
 package com.example.financetracker.presentation.screens.Income
 
-import com.example.financetracker.domain.models.TransactionResponse
 import com.example.financetracker.domain.Result
+import com.example.financetracker.domain.models.TransactionResponse
 
 /**
  * UI state data class for the IncomeScreen.

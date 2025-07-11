@@ -2,8 +2,6 @@ package com.example.financetracker.di.mainactivity_component
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.financetracker.di.mainactivity_component.DaggerViewModelFactory
-import com.example.financetracker.di.mainactivity_component.ViewModelKey
 import com.example.financetracker.presentation.screens.Income.IncomeViewModel
 import com.example.financetracker.presentation.screens.add_or_edit_transaction.AddOrEditTransactionViewModel
 import com.example.financetracker.presentation.screens.expenses.ExpensesViewModel

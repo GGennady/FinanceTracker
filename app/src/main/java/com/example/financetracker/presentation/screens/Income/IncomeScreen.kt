@@ -109,6 +109,7 @@ fun IncomeScreen(
                         subtitle = item.comment,
                         contentUpper = "${item.amount} ${item.account.currency}",
                         icon = R.drawable.ic_arrow_detail,
+                        onClick = { onNavigateTo(Screen.AddOrEditTransactionScreen(mode = TransactionMode.EDIT, type = TransactionType.INCOME, transactionId = item.id)) },
                         showDivider = true,
                     )
                 }

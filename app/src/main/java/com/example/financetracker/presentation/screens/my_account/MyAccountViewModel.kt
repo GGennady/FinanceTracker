@@ -4,8 +4,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.financetracker.domain.Result
 import com.example.financetracker.domain.FinanceRepository
+import com.example.financetracker.domain.Result
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -52,6 +52,7 @@ class MyAccountViewModel @Inject constructor(private val repository: FinanceRepo
             _accountState.value = when (result) {
                 is Result.Success -> _accountState.value.copy(
                     accountAfterPut = result.data,
+                    accountSaved = true,
                     isLoading = false,
                     error = null,
                 )

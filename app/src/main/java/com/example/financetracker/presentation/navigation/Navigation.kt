@@ -10,9 +10,9 @@ import com.example.financetracker.presentation.navigation.graphs.ExpensesGraph
 import com.example.financetracker.presentation.navigation.graphs.expensesGraph
 import com.example.financetracker.presentation.navigation.graphs.incomeGraph
 import com.example.financetracker.presentation.navigation.graphs.myAccountGraph
-import com.example.financetracker.presentation.screens.my_articles.MyArticlesScreen
 import com.example.financetracker.presentation.screens.SettingsScreen
 import com.example.financetracker.presentation.screens.add_or_edit_transaction.AddOrEditTransactionScreen
+import com.example.financetracker.presentation.screens.my_articles.MyArticlesScreen
 import kotlinx.serialization.Serializable
 
 /**
@@ -91,7 +91,7 @@ fun Navigation(
 
             AddOrEditTransactionScreen(
                 onNavigateTo = { screen -> navController.navigate(screen) },
-                onBackClick = { navController.popBackStack() },
+                onBackClick = { navController.popBackStack(args, true) },
                 onApplyClick = { screen ->
                     navController.navigate(screen) {
                         popUpTo(Screen.AddOrEditTransactionScreen) {

@@ -85,6 +85,29 @@ class AddOrEditTransactionViewModel @Inject constructor(private val repository: 
             _transactionState.value = when (result) {
                 is Result.Success -> _transactionState.value.copy(
                     transaction = result.data,
+                    transactionSaved = true,
+                    isLoading = false,
+                    error = null,
+                )
+
+                is Result.Error -> _transactionState.value.copy(
+                    isLoading = false,
+                    error = result
+                )
+            }
+        }
+    }
+
+    fun postTransaction(accountId: Int, categoryId: Int, amount: String, transactionDate: String, comment: String?) {
+        viewModelScope.launch {
+            _transactionState.value = _transactionState.value.copy(isLoading = true)
+
+            val result = repository.postTransaction(accountId, categoryId, amount, transactionDate, comment)
+
+            _transactionState.value = when (result) {
+                is Result.Success -> _transactionState.value.copy(
+                    transactionPost = result.data,
+                    transactionSaved = true,
                     isLoading = false,
                     error = null,
                 )

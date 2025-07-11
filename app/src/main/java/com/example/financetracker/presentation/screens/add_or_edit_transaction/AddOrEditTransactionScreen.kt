@@ -64,7 +64,6 @@ fun AddOrEditTransactionScreen(
     val categoryEmojiState = remember { mutableStateOf("") }
     val categoryState = remember { mutableStateOf("") }
     val commentState = remember { mutableStateOf("") }
-    val idState = remember { mutableIntStateOf(-1) }
     val accountIdState = remember { mutableIntStateOf(-1) }
     val categoryIdState = remember { mutableIntStateOf(-1) }
 
@@ -95,11 +94,32 @@ fun AddOrEditTransactionScreen(
                 categoryEmojiState.value = transactionResponse.category.emoji
                 commentState.value = transactionResponse.comment.toString()
                 categoryIdState.intValue = transactionResponse.category.id
-                idState.intValue = transactionResponse.id
             }
 
             transactionState.account?.let { accountResponse ->
                 accountIdState.intValue = accountResponse.id
+            }
+        }
+
+        LaunchedEffect(transactionState.transactionSaved) {
+            if(transactionState.transactionSaved) {
+                onBackClick()
+            }
+        }
+    }
+
+    if(mode == TransactionMode.CREATE) {
+        LaunchedEffect(transactionState.account) {
+            viewModel.getAccountById()
+
+            transactionState.account?.let { accountResponse ->
+                accountIdState.intValue = accountResponse.id
+            }
+        }
+
+        LaunchedEffect(transactionState.transactionSaved) {
+            if(transactionState.transactionSaved) {
+                onBackClick()
             }
         }
     }
@@ -130,8 +150,8 @@ fun AddOrEditTransactionScreen(
                 onLeftIconClick = onBackClick,
                 rightIcon = R.drawable.ic_apply,
                 onRightIconClick = {
-                    when(type) {
-                        TransactionType.EXPENSES -> {
+                    when(mode) {
+                        TransactionMode.EDIT -> {
                             viewModel.putTransaction(
                                 id = transactionId!!,
                                 accountId = accountIdState.intValue,
@@ -141,15 +161,19 @@ fun AddOrEditTransactionScreen(
                                 transactionDate = finalInstant
                             )
                         }
-                        TransactionType.INCOME -> {
-                            viewModel.putTransaction(
-                                id = idState.intValue,
+
+                        TransactionMode.CREATE -> {
+                            viewModel.postTransaction(
                                 accountId = accountIdState.intValue,
                                 categoryId = categoryIdState.intValue,
                                 amount = sumState.value,
                                 comment = commentState.value,
                                 transactionDate = finalInstant
                             )
+                            //onBackClick()
+                            if (transactionState.transactionPost != null) {
+                                onBackClick()
+                            }
                         }
                     }
                 },
@@ -267,17 +291,16 @@ fun AddOrEditTransactionScreen(
                 textFieldData = commentState,
                 showDivider = true,
             )
+        }
 
-
-            if (transactionState.isLoading) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    CircularProgressIndicator(
-                        color = Green,
-                    )
-                }
+        if (transactionState.isLoading) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                CircularProgressIndicator(
+                    color = Green,
+                )
             }
         }
 
