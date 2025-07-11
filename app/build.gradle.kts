@@ -21,10 +21,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        val properties = Properties()
-        properties.load(project.rootProject.file("local.properties").inputStream())
-        buildConfigField ("String","API_KEY","\"${properties.getProperty("API_KEY")}\"")
     }
 
     buildTypes {
@@ -52,11 +48,13 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
-
     }
 }
 
 dependencies {
+
+    implementation(project(path = ":domain"))
+    implementation(project(path = ":data"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -88,12 +86,6 @@ dependencies {
     ksp("com.google.dagger:dagger-compiler:2.56.2")
     implementation("com.google.dagger:dagger:2.56.2")
 
-    // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:3.0.0")
-    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
-
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
@@ -102,6 +94,4 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.1")
 
-    // Preferences DataStore
-    implementation("androidx.datastore:datastore-preferences:1.1.7")
 }

@@ -2,9 +2,8 @@ package com.example.financetracker.di.mainactivity_component
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.financetracker.di.mainactivity_component.DaggerViewModelFactory
-import com.example.financetracker.di.mainactivity_component.ViewModelKey
 import com.example.financetracker.presentation.screens.Income.IncomeViewModel
+import com.example.financetracker.presentation.screens.add_or_edit_transaction.AddOrEditTransactionViewModel
 import com.example.financetracker.presentation.screens.expenses.ExpensesViewModel
 import com.example.financetracker.presentation.screens.expenses_history.ExpensesHistoryViewModel
 import com.example.financetracker.presentation.screens.income_history.IncomeHistoryViewModel
@@ -49,4 +48,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(MyArticlesViewModel::class)
     fun bindMyArticlesViewModelToViewModel(myArticlesViewModel: MyArticlesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddOrEditTransactionViewModel::class)
+    fun bindAddOrEditTransactionViewModelToViewModel(addOrEditTransactionViewModel: AddOrEditTransactionViewModel): ViewModel
 }

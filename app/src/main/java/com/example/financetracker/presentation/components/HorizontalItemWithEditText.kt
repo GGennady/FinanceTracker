@@ -1,6 +1,5 @@
 package com.example.financetracker.presentation.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,9 +9,9 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
@@ -45,7 +44,8 @@ fun HorizontalItemWithEditText(
         // title
         Column(
             modifier = Modifier
-                .padding(end = 12.dp),
+                .padding(end = 12.dp)
+                .weight(0.4f),
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
@@ -57,6 +57,7 @@ fun HorizontalItemWithEditText(
 
         // contentUpper = TextField
         Column(
+            modifier = Modifier.weight(0.6f),
             horizontalAlignment = Alignment.End,
             verticalArrangement = Arrangement.Center,
         ) {
@@ -66,13 +67,13 @@ fun HorizontalItemWithEditText(
                 backgroundColor = Green.copy(alpha = 0.4f)
             )
             CompositionLocalProvider(LocalTextSelectionColors provides customTextSelectionColors) {
-                OutlinedTextField(
+                TextField(
                     value = textFieldData.value,
                     onValueChange = { textFieldData.value = it },
                     textStyle = Typography.bodyMedium,
                     keyboardOptions = keyboardOptions ?: KeyboardOptions.Default,
                     colors = OutlinedTextFieldDefaults.colors(
-                        unfocusedBorderColor = outlineVariant,
+                        unfocusedBorderColor = Green.copy(alpha = 0.6f),
                         focusedBorderColor = Green,
                         cursorColor = Green,
                         focusedLabelColor = Green,

@@ -1,7 +1,7 @@
 package com.example.financetracker.presentation.screens.my_articles
 
-import com.example.financetracker.utils.Result
-import com.example.financetracker.data.api.model.CategoryModel
+import com.example.financetracker.domain.Result
+import com.example.financetracker.domain.models.Category
 
 /**
  * UI state data class for the My Articles screen.
@@ -14,6 +14,6 @@ import com.example.financetracker.data.api.model.CategoryModel
  */
 data class MyArticlesUIState(
     val isLoading: Boolean = false,
-    val categories: List<CategoryModel> = emptyList(),
+    val categories: List<Category> = emptyList(),
     val error: Result.Error? = null,
 )

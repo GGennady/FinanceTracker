@@ -1,7 +1,7 @@
 package com.example.financetracker.presentation.screens.Income
 
-import com.example.financetracker.utils.Result
-import com.example.financetracker.data.api.model.TransactionModel
+import com.example.financetracker.domain.Result
+import com.example.financetracker.domain.models.TransactionResponse
 
 /**
  * UI state data class for the IncomeScreen.
@@ -14,6 +14,6 @@ import com.example.financetracker.data.api.model.TransactionModel
  */
 data class IncomeUIState(
     val isLoading: Boolean = false,
-    val transactions: List<TransactionModel> = emptyList(),
+    val transactions: List<TransactionResponse> = emptyList(),
     val error: Result.Error? = null,
 )

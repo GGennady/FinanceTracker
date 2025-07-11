@@ -15,7 +15,7 @@ data object IncomeGraph
 fun NavGraphBuilder.incomeGraph(navController: NavController) {
     navigation<IncomeGraph>(startDestination = Screen.Income) {
         composable<Screen.Income> {
-            IncomeScreen( { screen -> navController.navigate(screen) } )
+            IncomeScreen { screen -> navController.navigate(screen) }
         }
         composable<Screen.IncomeHistory> {
             IncomeHistoryScreen(

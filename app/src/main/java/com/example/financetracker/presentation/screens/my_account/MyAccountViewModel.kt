@@ -4,8 +4,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.financetracker.utils.Result
 import com.example.financetracker.domain.FinanceRepository
+import com.example.financetracker.domain.Result
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,6 +20,12 @@ class MyAccountViewModel @Inject constructor(private val repository: FinanceRepo
 
     private val _accountState = mutableStateOf(MyAccountUIState(isLoading = true))
     val accountState: State<MyAccountUIState> = _accountState
+
+    private var lastFun: (() -> Unit)? = null
+
+    fun retryLastFun(){
+        lastFun?.invoke()
+    }
 
     fun getAccountById() {
         viewModelScope.launch {
@@ -49,9 +55,12 @@ class MyAccountViewModel @Inject constructor(private val repository: FinanceRepo
 
             val result = repository.putAccountById(newName, newBalance, currency)
 
+            lastFun = { putAccountByIdNameAndBalance(newName, newBalance) }
+
             _accountState.value = when (result) {
                 is Result.Success -> _accountState.value.copy(
                     accountAfterPut = result.data,
+                    accountSaved = true,
                     isLoading = false,
                     error = null,
                 )

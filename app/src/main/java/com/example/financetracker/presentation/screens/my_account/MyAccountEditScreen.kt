@@ -59,11 +59,18 @@ fun MyAccountEditScreen(
         }
     }
 
+    LaunchedEffect(myAccountState.accountSaved) {
+        if(myAccountState.accountSaved) {
+            onApplyClick(Screen.MyAccount)
+        }
+    }
+
     val snackbarHostState = remember { SnackbarHostState() }
     HandleErrors(
         error = myAccountState.error,
         onErrorHandled = { viewModel.clearError() },
-        snackbarHostState = snackbarHostState
+        snackbarHostState = snackbarHostState,
+        isNeedRetry = { viewModel.retryLastFun() }
     )
 
     Box(
@@ -83,7 +90,6 @@ fun MyAccountEditScreen(
                 rightIcon = R.drawable.ic_apply,
                 onRightIconClick = {
                     viewModel.putAccountByIdNameAndBalance(newName = nameState.value, newBalance = balanceState.value)
-                    onApplyClick(Screen.MyAccount)
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Green,

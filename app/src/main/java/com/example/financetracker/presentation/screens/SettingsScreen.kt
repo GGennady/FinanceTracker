@@ -22,7 +22,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.financetracker.R
 import com.example.financetracker.presentation.components.HorizontalItem
@@ -31,9 +30,9 @@ import com.example.financetracker.presentation.navigation.Screen
 import com.example.financetracker.ui.theme.Black
 import com.example.financetracker.ui.theme.Green
 import com.example.financetracker.ui.theme.Typography
-import com.example.financetracker.ui.theme.surface
 import com.example.financetracker.ui.theme.onSurface
 import com.example.financetracker.ui.theme.outlineVariant
+import com.example.financetracker.ui.theme.surface
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -147,10 +146,4 @@ fun SettingsScreen(
             )
         }
     }
-}
-
-@Composable
-@Preview
-private fun SettingsScreenPreview() {
-    SettingsScreen {  }
 }

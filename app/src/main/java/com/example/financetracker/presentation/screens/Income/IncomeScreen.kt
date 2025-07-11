@@ -30,6 +30,8 @@ import com.example.financetracker.presentation.components.HorizontalItem
 import com.example.financetracker.presentation.components.PlusFloatingActionButton
 import com.example.financetracker.presentation.components.TopBar
 import com.example.financetracker.presentation.navigation.Screen
+import com.example.financetracker.presentation.navigation.TransactionMode
+import com.example.financetracker.presentation.navigation.TransactionType
 import com.example.financetracker.ui.theme.Green
 import com.example.financetracker.ui.theme.LightGreen
 import com.example.financetracker.ui.theme.onSurface
@@ -107,6 +109,7 @@ fun IncomeScreen(
                         subtitle = item.comment,
                         contentUpper = "${item.amount} ${item.account.currency}",
                         icon = R.drawable.ic_arrow_detail,
+                        onClick = { onNavigateTo(Screen.AddOrEditTransactionScreen(mode = TransactionMode.EDIT, type = TransactionType.INCOME, transactionId = item.id)) },
                         showDivider = true,
                     )
                 }
@@ -128,9 +131,8 @@ fun IncomeScreen(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(end = 16.dp, bottom = 16.dp),
-        ) {
-
-        }
+            onClick = { onNavigateTo(Screen.AddOrEditTransactionScreen(mode = TransactionMode.CREATE, type = TransactionType.INCOME)) }
+        )
 
         // snackbar
         Box(

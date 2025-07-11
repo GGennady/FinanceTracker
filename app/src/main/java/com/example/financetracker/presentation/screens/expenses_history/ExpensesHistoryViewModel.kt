@@ -4,8 +4,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.financetracker.utils.Result
 import com.example.financetracker.domain.FinanceRepository
+import com.example.financetracker.domain.Result
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -22,6 +22,7 @@ class ExpensesHistoryViewModel @Inject constructor(private val repository: Finan
 
     private val _expensesHistoryState = mutableStateOf(ExpensesHistoryUIState(isLoading = true))
     val expensesHistoryState: State<ExpensesHistoryUIState> = _expensesHistoryState
+
 
     fun getAllExpensesHistory(startDate: String? = null, endDate: String? = null) {
         viewModelScope.launch {
