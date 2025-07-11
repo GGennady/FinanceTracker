@@ -128,7 +128,8 @@ fun AddOrEditTransactionScreen(
     HandleErrors(
         error = transactionState.error,
         onErrorHandled = { viewModel.clearError() },
-        snackbarHostState = snackbarHostState
+        snackbarHostState = snackbarHostState,
+        isNeedRetry = { viewModel.retryLastFun() }
     )
 
     Box(

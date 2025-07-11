@@ -21,6 +21,12 @@ class MyAccountViewModel @Inject constructor(private val repository: FinanceRepo
     private val _accountState = mutableStateOf(MyAccountUIState(isLoading = true))
     val accountState: State<MyAccountUIState> = _accountState
 
+    private var lastFun: (() -> Unit)? = null
+
+    fun retryLastFun(){
+        lastFun?.invoke()
+    }
+
     fun getAccountById() {
         viewModelScope.launch {
             _accountState.value = _accountState.value.copy(isLoading = true)
@@ -48,6 +54,8 @@ class MyAccountViewModel @Inject constructor(private val repository: FinanceRepo
             val currency = accountState.value.account?.currency ?: return@launch
 
             val result = repository.putAccountById(newName, newBalance, currency)
+
+            lastFun = { putAccountByIdNameAndBalance(newName, newBalance) }
 
             _accountState.value = when (result) {
                 is Result.Success -> _accountState.value.copy(

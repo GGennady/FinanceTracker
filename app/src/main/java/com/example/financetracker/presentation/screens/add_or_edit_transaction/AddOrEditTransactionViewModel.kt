@@ -15,6 +15,12 @@ class AddOrEditTransactionViewModel @Inject constructor(private val repository: 
 
     val transactionState: State<AddOrEditUIState> = _transactionState
 
+    private var lastFun: (() -> Unit)? = null
+
+    fun retryLastFun(){
+        lastFun?.invoke()
+    }
+
     fun getTransactionById(id: Int) {
         viewModelScope.launch {
             _transactionState.value = _transactionState.value.copy(isLoading = true)
@@ -82,6 +88,8 @@ class AddOrEditTransactionViewModel @Inject constructor(private val repository: 
 
             val result = repository.putTransaction(id, accountId, categoryId, amount, transactionDate, comment)
 
+            lastFun = { putTransaction(id, accountId, categoryId, amount, transactionDate, comment) }
+
             _transactionState.value = when (result) {
                 is Result.Success -> _transactionState.value.copy(
                     transaction = result.data,
@@ -103,6 +111,8 @@ class AddOrEditTransactionViewModel @Inject constructor(private val repository: 
             _transactionState.value = _transactionState.value.copy(isLoading = true)
 
             val result = repository.postTransaction(accountId, categoryId, amount, transactionDate, comment)
+
+            lastFun = { postTransaction(accountId, categoryId, amount, transactionDate, comment) }
 
             _transactionState.value = when (result) {
                 is Result.Success -> _transactionState.value.copy(

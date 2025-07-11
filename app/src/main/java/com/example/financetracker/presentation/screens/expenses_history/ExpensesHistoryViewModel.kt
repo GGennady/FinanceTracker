@@ -23,6 +23,7 @@ class ExpensesHistoryViewModel @Inject constructor(private val repository: Finan
     private val _expensesHistoryState = mutableStateOf(ExpensesHistoryUIState(isLoading = true))
     val expensesHistoryState: State<ExpensesHistoryUIState> = _expensesHistoryState
 
+
     fun getAllExpensesHistory(startDate: String? = null, endDate: String? = null) {
         viewModelScope.launch {
             _expensesHistoryState.value = _expensesHistoryState.value.copy(isLoading = true)
