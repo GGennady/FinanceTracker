@@ -15,7 +15,7 @@ data object ExpensesGraph
 fun NavGraphBuilder.expensesGraph(navController: NavController) {
     navigation<ExpensesGraph>(startDestination = Screen.Expenses) {
         composable<Screen.Expenses> {
-            ExpensesScreen( { screen -> navController.navigate(screen) } )
+            ExpensesScreen { screen -> navController.navigate(screen) }
         }
         composable<Screen.ExpensesHistory> {
             ExpensesHistoryScreen(

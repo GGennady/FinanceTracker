@@ -7,5 +7,7 @@ data class TransactionRequest(
 
     val amount: String,
 
+    val transactionDate: String,
+
     val comment: String? = null,
 )

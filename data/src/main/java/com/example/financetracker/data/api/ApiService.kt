@@ -28,6 +28,11 @@ interface ApiService {
         @Query("endDate") endDate: String? = null
     ): List<TransactionResponseDto>
 
+    @GET("transactions/{id}")
+    suspend fun getTransactionById(
+        @Path("id") id: Int,
+    ): TransactionResponseDto
+
     @POST("transactions")
     suspend fun postTransaction(
         @Body body: TransactionRequestDto

@@ -36,6 +36,8 @@ import com.example.financetracker.presentation.LocalViewModelFactory
 import com.example.financetracker.utils.DateConverter
 import com.example.financetracker.presentation.components.CustomDatePicker
 import com.example.financetracker.presentation.components.HandleErrors
+import com.example.financetracker.presentation.navigation.TransactionMode
+import com.example.financetracker.presentation.navigation.TransactionType
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -165,6 +167,7 @@ fun ExpensesHistoryScreen(
                         contentUpper = "${item.amount} ${item.account.currency}",
                         contentLower = DateConverter.formatIsoDate(item.transactionDate) ?: "DateTimeParseException",
                         icon = R.drawable.ic_arrow_detail,
+                        onClick = { onNavigateTo(Screen.AddOrEditTransactionScreen(mode = TransactionMode.EDIT, type = TransactionType.EXPENSES, transactionId = item.id))},
                         showDivider = true,
                     )
                 }

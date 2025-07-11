@@ -4,6 +4,7 @@ import com.example.financetracker.data.AccountIdStorage
 import com.example.financetracker.data.BaseApiResponse
 import com.example.financetracker.data.NetworkMonitor
 import com.example.financetracker.data.api.ApiService
+import com.example.financetracker.data.api.mappers.toData
 import com.example.financetracker.data.api.mappers.toDomain
 import com.example.financetracker.data.api.models.AccountUpdateRequestDto
 import com.example.financetracker.data.api.models.TransactionRequestDto
@@ -13,7 +14,9 @@ import com.example.financetracker.domain.models.AccountResponse
 import com.example.financetracker.domain.models.Category
 import com.example.financetracker.domain.models.TransactionResponse
 import com.example.financetracker.domain.Result
+import com.example.financetracker.domain.models.AccountUpdateRequest
 import com.example.financetracker.domain.models.Transaction
+import com.example.financetracker.domain.models.TransactionRequest
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
@@ -37,6 +40,10 @@ class FinanceRepositoryImpl @Inject constructor(
         return safeApiCall( { api.getAllTransactions(accountId, startDate, endDate).map { it.toDomain() } } )
     }
 
+    override suspend fun getTransactionById(transactionId: Int): Result<TransactionResponse> {
+        return safeApiCall( { api.getTransactionById(transactionId).toDomain() } )
+    }
+
     override suspend fun getAccountById(): Result<AccountResponse> {
         val id = accountIdStorage.getAccountId().first()
         return safeApiCall( { api.getAccountById(id).toDomain() } )
@@ -48,18 +55,17 @@ class FinanceRepositoryImpl @Inject constructor(
 
     override suspend fun putAccountById(name: String, balance: String, currency: String): Result<Account> {
         val id = accountIdStorage.getAccountId().first()
-        val requestBody = AccountUpdateRequestDto(name, balance, currency)
+        val requestBody = AccountUpdateRequest(name, balance, currency).toData()
         return safeApiCall( { api.putAccountById(id, requestBody).toDomain() } )
     }
 
-    override suspend fun postTransaction(accountId: Int, categoryId: Int, amount: String, comment: String?): Result<Transaction> {
-        val requestBody = TransactionRequestDto(accountId, categoryId, amount, comment)
+    override suspend fun postTransaction(accountId: Int, categoryId: Int, amount: String, transactionDate: String, comment: String?): Result<Transaction> {
+        val requestBody = TransactionRequest(accountId, categoryId, amount, transactionDate, comment).toData()
         return safeApiCall( { api.postTransaction(requestBody).toDomain() } )
     }
 
-    override suspend fun putTransaction(accountId: Int, categoryId: Int, amount: String, comment: String?): Result<TransactionResponse> {
-        val id = accountIdStorage.getAccountId().first()
-        val requestBody = TransactionRequestDto(accountId, categoryId, amount, comment)
+    override suspend fun putTransaction(id: Int, accountId: Int, categoryId: Int, amount: String, transactionDate: String, comment: String?): Result<TransactionResponse> {
+        val requestBody = TransactionRequest(accountId, categoryId, amount, transactionDate, comment).toData()
         return safeApiCall( { api.putTransaction(id, requestBody).toDomain() } )
     }
 }

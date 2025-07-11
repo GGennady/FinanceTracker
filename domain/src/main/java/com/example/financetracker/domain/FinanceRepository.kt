@@ -14,13 +14,15 @@ import com.example.financetracker.domain.models.TransactionResponse
 interface FinanceRepository {
     suspend fun getAllTransactions(startDate: String? = null, endDate: String? = null): Result<List<TransactionResponse>>
 
+    suspend fun getTransactionById(transactionId: Int): Result<TransactionResponse>
+
     suspend fun getAccountById(): Result<AccountResponse>
 
     suspend fun getAllCategories(): Result<List<Category>>
 
     suspend fun putAccountById(name: String, balance: String, currency: String): Result<Account>
 
-    suspend fun postTransaction(accountId: Int, categoryId: Int, amount: String, comment: String? = null): Result<Transaction>
+    suspend fun postTransaction(accountId: Int, categoryId: Int, amount: String, transactionDate: String, comment: String? = null): Result<Transaction>
 
-    suspend fun putTransaction(accountId: Int, categoryId: Int, amount: String, comment: String? = null): Result<TransactionResponse>
+    suspend fun putTransaction(id: Int, accountId: Int, categoryId: Int, amount: String, transactionDate: String, comment: String? = null): Result<TransactionResponse>
 }

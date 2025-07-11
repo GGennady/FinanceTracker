@@ -12,6 +12,9 @@ data class TransactionRequestDto(
     @SerializedName("amount")
     val amount: String,
 
+    @SerializedName("transactionDate")
+    val  transactionDate: String,
+
     @SerializedName("comment")
     val comment: String? = null,
 )

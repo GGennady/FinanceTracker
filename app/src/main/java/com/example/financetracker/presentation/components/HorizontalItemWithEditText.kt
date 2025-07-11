@@ -13,6 +13,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
@@ -22,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.financetracker.ui.theme.Black
 import com.example.financetracker.ui.theme.Green
+import com.example.financetracker.ui.theme.Transparent
 import com.example.financetracker.ui.theme.Typography
 import com.example.financetracker.ui.theme.outlineVariant
 
@@ -45,7 +47,8 @@ fun HorizontalItemWithEditText(
         // title
         Column(
             modifier = Modifier
-                .padding(end = 12.dp),
+                .padding(end = 12.dp)
+                .weight(0.4f),
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
@@ -57,6 +60,7 @@ fun HorizontalItemWithEditText(
 
         // contentUpper = TextField
         Column(
+            modifier = Modifier.weight(0.6f),
             horizontalAlignment = Alignment.End,
             verticalArrangement = Arrangement.Center,
         ) {
@@ -66,13 +70,13 @@ fun HorizontalItemWithEditText(
                 backgroundColor = Green.copy(alpha = 0.4f)
             )
             CompositionLocalProvider(LocalTextSelectionColors provides customTextSelectionColors) {
-                OutlinedTextField(
+                TextField(
                     value = textFieldData.value,
                     onValueChange = { textFieldData.value = it },
                     textStyle = Typography.bodyMedium,
                     keyboardOptions = keyboardOptions ?: KeyboardOptions.Default,
                     colors = OutlinedTextFieldDefaults.colors(
-                        unfocusedBorderColor = outlineVariant,
+                        unfocusedBorderColor = Green.copy(alpha = 0.6f),
                         focusedBorderColor = Green,
                         cursorColor = Green,
                         focusedLabelColor = Green,
