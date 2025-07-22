@@ -1,4 +1,4 @@
-package com.example.financetracker.di.mainactivity_component
+package com.example.financetracker.di
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

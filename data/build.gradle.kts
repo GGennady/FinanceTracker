@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     id("com.google.devtools.ksp")
+    id("androidx.room")
 }
 
 android {
@@ -30,6 +31,11 @@ android {
             )
         }
     }
+
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -66,5 +72,9 @@ dependencies {
     // Dagger 2
     ksp("com.google.dagger:dagger-compiler:2.56.2")
     implementation("com.google.dagger:dagger:2.56.2")
+
+    // Room
+    ksp("androidx.room:room-compiler:2.7.2")
+    implementation("androidx.room:room-runtime:2.7.2")
 
 }
