@@ -13,7 +13,7 @@ fun TransactionWithAccountAndCategory.toDomain(): TransactionResponse = Transact
     transactionDate = transaction.transactionDate,
     comment = transaction.comment,
     createdAt = transaction.createdAt,
-    updatedAt = transaction.updatedAt
+    updatedAt = transaction.updatedAt,
 )
 
 fun TransactionResponse.toEntity(): TransactionEntity = TransactionEntity(
@@ -24,5 +24,6 @@ fun TransactionResponse.toEntity(): TransactionEntity = TransactionEntity(
     transactionDate = transactionDate,
     comment = comment,
     createdAt = createdAt,
-    updatedAt = updatedAt
+    updatedAt = updatedAt,
+    isSynced = true
 )

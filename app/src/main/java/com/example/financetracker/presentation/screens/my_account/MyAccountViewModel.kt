@@ -6,8 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.financetracker.domain.FinanceRepository
 import com.example.financetracker.domain.Result
+import com.example.financetracker.domain.models.TransactionResponse
+import com.example.graphs.ExpensesGraphElement
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
+import kotlin.math.abs
 
 /**
  * ViewModel for managing the MyAccountScreen logic.
@@ -25,6 +30,26 @@ class MyAccountViewModel @Inject constructor(private val repository: FinanceRepo
 
     fun retryLastFun(){
         lastFun?.invoke()
+    }
+
+    fun getAllExpenses() {
+        viewModelScope.launch {
+            _accountState.value = _accountState.value.copy(isLoading = true)
+
+            val result = repository.getAllTransactions()
+
+            _accountState.value = when (result) {
+                is Result.Success -> _accountState.value.copy(
+                    transactions = result.data,
+                    isLoading = false,
+                    error = null
+                )
+                is Result.Error -> _accountState.value.copy(
+                    isLoading = false,
+                    error = result
+                )
+            }
+        }
     }
 
     fun getAccountById() {

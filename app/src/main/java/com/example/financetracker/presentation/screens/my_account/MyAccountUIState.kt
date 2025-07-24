@@ -3,6 +3,7 @@ package com.example.financetracker.presentation.screens.my_account
 import com.example.financetracker.domain.Result
 import com.example.financetracker.domain.models.Account
 import com.example.financetracker.domain.models.AccountResponse
+import com.example.financetracker.domain.models.TransactionResponse
 
 /**
  * UI state data class for the My Account screen.
@@ -18,5 +19,6 @@ data class MyAccountUIState (
     val account: AccountResponse? = null,
     val accountAfterPut: Account? = null,
     val error: Result.Error? = null,
-    val accountSaved: Boolean = false
+    val accountSaved: Boolean = false,
+    val transactions: List<TransactionResponse> = emptyList(),
 )

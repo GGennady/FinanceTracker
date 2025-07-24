@@ -102,8 +102,8 @@ class FinanceRepositoryImpl @Inject constructor(
         val categories = transactions.map { it.category.toEntity() }.distinctBy { it.id }
 
         //transactionDao.clearTransactions()
-        //transactionDao.insertAccounts(accounts)
-        //transactionDao.insertCategories(categories)
+        transactionDao.insertAccounts(accounts)
+        transactionDao.insertCategories(categories)
         transactionDao.insertTransactions(entities)
     }
 
