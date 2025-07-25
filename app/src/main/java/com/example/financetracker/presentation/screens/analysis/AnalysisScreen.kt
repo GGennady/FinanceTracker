@@ -1,4 +1,4 @@
-package com.example.financetracker.presentation.screens.income_history
+package com.example.financetracker.presentation.screens.analysis
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -21,46 +21,50 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.financetracker.R
+import com.example.financetracker.domain.models.TransactionResponse
 import com.example.financetracker.presentation.LocalViewModelFactory
 import com.example.financetracker.presentation.components.CustomDatePicker
 import com.example.financetracker.presentation.components.HandleErrors
 import com.example.financetracker.presentation.components.HorizontalItem
 import com.example.financetracker.presentation.components.TopBar
 import com.example.financetracker.presentation.navigation.Screen
-import com.example.financetracker.presentation.navigation.TransactionMode
 import com.example.financetracker.presentation.navigation.TransactionType
 import com.example.financetracker.ui.theme.Green
-import com.example.financetracker.ui.theme.LightGreen
+import com.example.financetracker.ui.theme.White
 import com.example.financetracker.ui.theme.onSurface
 import com.example.financetracker.ui.theme.surface
-import com.example.financetracker.utils.DateConverter
+import com.example.graphs.circle_graph.CircleGraph
+import com.example.graphs.circle_graph.CircleGraphElement
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun IncomeHistoryScreen(
+fun AnalysisScreen(
     onNavigateTo: (Screen) -> Unit,
     onBackClick: () -> Unit,
+    type: TransactionType,
 ) {
-    val viewModel: IncomeHistoryViewModel = viewModel(factory = LocalViewModelFactory.current)
 
-    val incomeHistoryState by viewModel.incomeHistoryState
+    val viewModel: AnalysisViewModel = viewModel(factory = LocalViewModelFactory.current)
 
-    val startDate = incomeHistoryState.startDate
-    val endDate = incomeHistoryState.endDate
+    val analysisState by viewModel.analysisState
+
+    val startDate = analysisState.startDate
+    val endDate = analysisState.endDate
 
     LaunchedEffect(key1 = startDate, key2 = endDate) {
         if (startDate == null && endDate == null) {
-            viewModel.getAllIncomeHistory()
+            viewModel.getAllTransactionsHistory()
         }
         if (startDate != null && endDate != null) {
             val formatter = DateTimeFormatter.ISO_LOCAL_DATE
-            viewModel.getAllIncomeHistory(
+            viewModel.getAllTransactionsHistory(
                 startDate = startDate.format(formatter),
                 endDate = endDate.format(formatter)
             )
@@ -69,7 +73,7 @@ fun IncomeHistoryScreen(
 
     val snackbarHostState = remember { SnackbarHostState() }
     HandleErrors(
-        error = incomeHistoryState.error,
+        error = analysisState.error,
         onErrorHandled = { viewModel.clearError() },
         snackbarHostState = snackbarHostState
     )
@@ -103,22 +107,20 @@ fun IncomeHistoryScreen(
                 .background(surface)
         ) {
             TopBar(
-                title = stringResource(R.string.incomeHistory_topbar),
-                rightIcon = R.drawable.ic_analysis,
-                onRightIconClick = { onNavigateTo(Screen.AnalysisScreen(TransactionType.INCOME)) },
+                title = stringResource(R.string.analysis_topbar),
                 leftIcon = R.drawable.ic_back,
                 onLeftIconClick = onBackClick,
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Green,
+                    containerColor = White,
                     titleContentColor = onSurface,
                 ),
             )
 
             HorizontalItem(
                 modifier = Modifier
-                    .background(LightGreen)
+                    .background(White)
                     .height(56.dp),
-                title = stringResource(R.string.incomeHistory_startDate),
+                title = stringResource(R.string.expensesHistory_startDate),
                 contentUpper = startDate?.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) ?: stringResource(R.string.historyScreens_chooseDate),
                 icon = R.drawable.ic_arrow_detail,
                 showDivider = true,
@@ -127,50 +129,106 @@ fun IncomeHistoryScreen(
 
             HorizontalItem(
                 modifier = Modifier
-                    .background(LightGreen)
+                    .background(White)
                     .height(56.dp),
-                title = stringResource(R.string.incomeHistory_endDate),
+                title = stringResource(R.string.expensesHistory_endDate),
                 contentUpper = endDate?.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) ?: stringResource(R.string.historyScreens_chooseDate),
                 icon = R.drawable.ic_arrow_detail,
                 showDivider = true,
                 onClick = { showEndPicker = true },
             )
 
-            val expensesHistoryOnly = incomeHistoryState.transactions.filter { it.category.isIncome }
-            val totalExpensesHistory =  expensesHistoryOnly.sumOf { transaction -> transaction.amount.toDoubleOrNull() ?: 0.0 }
-            val currency =  expensesHistoryOnly.firstOrNull()?.account?.currency ?: ""
+            val filteredTransactions = when(type) {
+                TransactionType.EXPENSES -> {
+                    analysisState.transactions.filter { !it.category.isIncome }
+                }
 
-            val formattedTotal = "%,.2f %s".format(totalExpensesHistory, currency)
+                TransactionType.INCOME -> {
+                    analysisState.transactions.filter { it.category.isIncome }
+                }
+            }
+            val totalHistory =  filteredTransactions.sumOf { transaction -> transaction.amount.toDoubleOrNull() ?: 0.0 }
+            val currency =  filteredTransactions.firstOrNull()?.account?.currency ?: ""
+            val formattedTotal = "%,.2f %s".format(totalHistory, currency)
 
             HorizontalItem(
                 modifier = Modifier
-                    .background(LightGreen)
+                    .background(White)
                     .height(56.dp),
-                title = stringResource(R.string.incomeHistory_sum),
+                title = stringResource(R.string.expensesHistory_sum),
                 contentUpper = formattedTotal,
                 showDivider = true,
             )
 
+            fun mapTransactionsToPieChartEntries(transactions: List<TransactionResponse>): List<CircleGraphElement> {
+
+                val filteredTransactions = when(type) {
+                    TransactionType.EXPENSES -> {
+                        transactions.filter { !it.category.isIncome }.groupBy { it.category }
+                    }
+
+                    TransactionType.INCOME -> {
+                        transactions.filter { it.category.isIncome }.groupBy { it.category }
+                    }
+                }
+
+                val total = filteredTransactions.values
+                    .flatten()
+                    .sumOf { it.amount.toDoubleOrNull() ?: 0.0 }
+
+                val colorPalette = listOf(
+                    Color(0xFFE57373), Color(0xFFBA68C8), Color(0xFF64B5F6), Color(0xFF4DB6AC),
+                    Color(0xFFFFD54F), Color(0xFFA1887F), Color(0xFF90A4AE), Color(0xFFFF8A65),
+                    Color(0xFF81C784), Color(0xFFFFB74D), Color(0xFF9575CD), Color(0xFF7986CB),
+                )
+
+                var colorIndex = 0
+
+                val elements = filteredTransactions.map { (category, items) ->
+                    val sum = items.sumOf { it.amount.toDoubleOrNull()?: 0.0 }
+                    val percent = if (total == 0.0) 0f else ((sum / total) * 100).toFloat()
+                    CircleGraphElement(
+                        label = "${category.emoji} ${category.name}",
+                        percentage = percent,
+                        color = colorPalette[colorIndex++ % colorPalette.size]
+                    )
+                }.sortedByDescending { it.percentage }
+
+                return elements
+            }
+
+            val elements = remember(analysisState.transactions) { mapTransactionsToPieChartEntries(analysisState.transactions) }
+            CircleGraph(elements)
+
             LazyColumn (
                 contentPadding = PaddingValues(bottom = 1.dp) // to show last divider
             ){
-                items(incomeHistoryState.transactions
-                    .filter { it.category.isIncome }
+                items(analysisState.transactions
+                    .filter {
+                        when(type) {
+                            TransactionType.EXPENSES -> {
+                                !it.category.isIncome
+                            }
+                            TransactionType.INCOME -> {
+                                it.category.isIncome
+                            }
+                        }
+                    }
                     .sortedByDescending { it.transactionDate }
                 ) { item ->
                     HorizontalItem(
                         modifier = Modifier.height(70.dp),
                         emoji = item.category.emoji,
                         title = item.category.name,
+                        subtitle = item.comment,
                         contentUpper = "${item.amount} ${item.account.currency}",
-                        contentLower = DateConverter.formatIsoDate(item.transactionDate) ?: "DateTimeParseException",
-                        icon = R.drawable.ic_arrow_detail,
-                        onClick = { onNavigateTo(Screen.AddOrEditTransactionScreen(mode = TransactionMode.EDIT, type = TransactionType.INCOME, transactionId = item.id)) },
+                        contentLower = String.format("%.1f%%", (item.amount.toDoubleOrNull() ?: 0.0) / totalHistory * 100),
                         showDivider = true,
                     )
                 }
             }
-            if (incomeHistoryState.isLoading) {
+
+            if (analysisState.isLoading) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center,
@@ -181,7 +239,7 @@ fun IncomeHistoryScreen(
                 }
             }
         }
-        
+
         // snackbar
         Box(
             modifier = Modifier.fillMaxSize(),

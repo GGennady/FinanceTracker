@@ -12,6 +12,7 @@ import com.example.financetracker.presentation.navigation.graphs.incomeGraph
 import com.example.financetracker.presentation.navigation.graphs.myAccountGraph
 import com.example.financetracker.presentation.screens.SettingsScreen
 import com.example.financetracker.presentation.screens.add_or_edit_transaction.AddOrEditTransactionScreen
+import com.example.financetracker.presentation.screens.analysis.AnalysisScreen
 import com.example.financetracker.presentation.screens.my_articles.MyArticlesScreen
 import kotlinx.serialization.Serializable
 
@@ -49,6 +50,11 @@ sealed class Screen {
         val type: TransactionType,
         val transactionId: Int? = null
     ) : Screen()
+
+    @Serializable
+    data class AnalysisScreen(
+        val type: TransactionType
+    ): Screen()
 }
 
 @Serializable
@@ -83,26 +89,6 @@ fun Navigation(
 
         composable<Screen.Settings> {
             SettingsScreen { screen -> navController.navigate(screen) }
-        }
-
-        composable<Screen.AddOrEditTransactionScreen> { backStackEntry ->
-
-            val args = backStackEntry.toRoute<Screen.AddOrEditTransactionScreen>()
-
-            AddOrEditTransactionScreen(
-                onNavigateTo = { screen -> navController.navigate(screen) },
-                onBackClick = { navController.popBackStack(args, true) },
-                onApplyClick = { screen ->
-                    navController.navigate(screen) {
-                        popUpTo(Screen.AddOrEditTransactionScreen) {
-                            inclusive = true
-                        }
-                    }
-                },
-                mode = args.mode,
-                type = args.type,
-                transactionId = args.transactionId,
-            )
         }
     }
 }

@@ -24,7 +24,7 @@ interface TransactionDao {
     )
     suspend fun getAllWithRelations(startDate: String?, endDate: String?): List<TransactionWithAccountAndCategory>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTransactions(transactions: List<TransactionEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

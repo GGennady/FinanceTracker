@@ -1,4 +1,4 @@
-package com.example.graphs
+package com.example.graphs.expenses_graph
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

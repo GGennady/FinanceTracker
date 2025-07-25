@@ -6,13 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.financetracker.domain.FinanceRepository
 import com.example.financetracker.domain.Result
-import com.example.financetracker.domain.models.TransactionResponse
-import com.example.graphs.ExpensesGraphElement
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
-import kotlin.math.abs
 
 /**
  * ViewModel for managing the MyAccountScreen logic.

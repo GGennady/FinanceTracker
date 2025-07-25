@@ -106,7 +106,7 @@ fun ExpensesHistoryScreen(
             TopBar(
                 title = stringResource(R.string.expensesHistory_topbar),
                 rightIcon = R.drawable.ic_analysis,
-                onRightIconClick = {},
+                onRightIconClick = { onNavigateTo(Screen.AnalysisScreen(TransactionType.EXPENSES)) },
                 leftIcon = R.drawable.ic_back,
                 onLeftIconClick = onBackClick,
                 colors = TopAppBarDefaults.topAppBarColors(

@@ -33,8 +33,8 @@ import com.example.financetracker.ui.theme.Green
 import com.example.financetracker.ui.theme.LightGreen
 import com.example.financetracker.ui.theme.onSurface
 import com.example.financetracker.ui.theme.surface
-import com.example.graphs.ExpensesGraph
-import com.example.graphs.ExpensesGraphElement
+import com.example.graphs.expenses_graph.ExpensesGraph
+import com.example.graphs.expenses_graph.ExpensesGraphElement
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import kotlin.collections.orEmpty
