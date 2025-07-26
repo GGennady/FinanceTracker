@@ -32,4 +32,5 @@
     <string name="currencyBottomSheet_usd">Американский доллар ($)</string>
     <string name="currencyBottomSheet_eur">Евро (€)</string>
     <string name="currencyBottomSheet_dismiss">Отмена</string>
+    <string name="analysis_topbar">Анализ</string>
 </resources>

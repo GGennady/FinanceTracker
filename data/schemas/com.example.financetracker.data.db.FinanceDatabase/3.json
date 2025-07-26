@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "b01e57e9ad34795b82cd1948a1653cd8",
+    "version": 3,
+    "identityHash": "5477616ece753144b250abde7047ae8b",
     "entities": [
       {
         "tableName": "account_brief_table",
@@ -78,7 +78,7 @@
       },
       {
         "tableName": "transaction_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `accountId` INTEGER NOT NULL, `categoryId` INTEGER NOT NULL, `amount` TEXT NOT NULL, `transactionDate` TEXT NOT NULL, `comment` TEXT, `createdAt` TEXT NOT NULL, `updatedAt` TEXT NOT NULL, `isSynced` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`accountId`) REFERENCES `account_brief_table`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`categoryId`) REFERENCES `category_table`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `accountId` INTEGER NOT NULL, `categoryId` INTEGER NOT NULL, `amount` TEXT NOT NULL, `transactionDate` TEXT NOT NULL, `comment` TEXT, `createdAt` TEXT NOT NULL, `updatedAt` TEXT NOT NULL, `isSynced` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`accountId`) REFERENCES `account_brief_table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`categoryId`) REFERENCES `category_table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -163,7 +163,7 @@
         "foreignKeys": [
           {
             "table": "account_brief_table",
-            "onDelete": "CASCADE",
+            "onDelete": "NO ACTION",
             "onUpdate": "NO ACTION",
             "columns": [
               "accountId"
@@ -174,7 +174,7 @@
           },
           {
             "table": "category_table",
-            "onDelete": "CASCADE",
+            "onDelete": "NO ACTION",
             "onUpdate": "NO ACTION",
             "columns": [
               "categoryId"
@@ -188,7 +188,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b01e57e9ad34795b82cd1948a1653cd8')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5477616ece753144b250abde7047ae8b')"
     ]
   }
 }

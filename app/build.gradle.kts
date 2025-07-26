@@ -55,6 +55,7 @@ dependencies {
 
     implementation(project(path = ":domain"))
     implementation(project(path = ":data"))
+    implementation(project(path = ":app:graphs"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

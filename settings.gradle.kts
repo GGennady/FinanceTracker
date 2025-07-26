@@ -23,3 +23,4 @@ rootProject.name = "FinanceTracker"
 include(":app")
 include(":data")
 include(":domain")
+include(":app:graphs")

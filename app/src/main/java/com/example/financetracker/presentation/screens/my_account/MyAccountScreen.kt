@@ -22,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.financetracker.R
+import com.example.financetracker.domain.models.TransactionResponse
 import com.example.financetracker.presentation.LocalViewModelFactory
 import com.example.financetracker.presentation.components.CurrencyBottomSheet
 import com.example.financetracker.presentation.components.HandleErrors
@@ -32,6 +33,12 @@ import com.example.financetracker.ui.theme.Green
 import com.example.financetracker.ui.theme.LightGreen
 import com.example.financetracker.ui.theme.onSurface
 import com.example.financetracker.ui.theme.surface
+import com.example.graphs.expenses_graph.ExpensesGraph
+import com.example.graphs.expenses_graph.ExpensesGraphElement
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import kotlin.collections.orEmpty
+import kotlin.math.abs
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,6 +52,7 @@ fun MyAccountScreen(
 
     LaunchedEffect(Unit) {
         viewModel.getAccountById()
+        viewModel.getAllExpenses()
     }
 
     val snackbarHostState = remember { SnackbarHostState() }
@@ -105,6 +113,45 @@ fun MyAccountScreen(
                 onClick = { showCurrencyBottomSheet = true },
                 showDivider = true,
             )
+
+            fun mapTransactionsToChartEntries(transactions: List<TransactionResponse>): List<ExpensesGraphElement> {
+                val formatter = DateTimeFormatter.ISO_DATE
+                val grouped = transactions.groupBy { it.transactionDate.substring(0, 10) }
+
+                val today = LocalDate.now()
+
+                val elements = (0 until 30).map { offset ->
+                    val date = today.minusDays((29 - offset).toLong())
+                    val key = date.format(formatter)
+
+                    val dailyTransactions = grouped[key].orEmpty()
+
+                    val expensesSum = dailyTransactions
+                        .filter { !it.category.isIncome }
+                        .mapNotNull { it.amount.toFloatOrNull() }
+                        .sum()
+
+                    val incomeSum = dailyTransactions
+                        .filter { it.category.isIncome }
+                        .mapNotNull { it.amount.toFloatOrNull() }
+                        .sum()
+
+                    val netAmount = expensesSum - incomeSum
+                    val isPositive = netAmount <= 0f
+
+                    ExpensesGraphElement(
+                        date = date,
+                        amount = abs(netAmount),
+                        isPositive = isPositive
+                    )
+                }
+                return elements
+            }
+
+            val graphElements = remember(myAccountState.transactions) {
+                mapTransactionsToChartEntries(myAccountState.transactions)
+            }
+            ExpensesGraph(elements = graphElements)
 
             if (showCurrencyBottomSheet) {
                 CurrencyBottomSheet(

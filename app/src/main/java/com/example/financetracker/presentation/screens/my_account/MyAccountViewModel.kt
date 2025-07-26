@@ -27,6 +27,26 @@ class MyAccountViewModel @Inject constructor(private val repository: FinanceRepo
         lastFun?.invoke()
     }
 
+    fun getAllExpenses() {
+        viewModelScope.launch {
+            _accountState.value = _accountState.value.copy(isLoading = true)
+
+            val result = repository.getAllTransactions()
+
+            _accountState.value = when (result) {
+                is Result.Success -> _accountState.value.copy(
+                    transactions = result.data,
+                    isLoading = false,
+                    error = null
+                )
+                is Result.Error -> _accountState.value.copy(
+                    isLoading = false,
+                    error = result
+                )
+            }
+        }
+    }
+
     fun getAccountById() {
         viewModelScope.launch {
             _accountState.value = _accountState.value.copy(isLoading = true)

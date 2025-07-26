@@ -12,7 +12,7 @@ import com.example.financetracker.data.db.entities.TransactionEntity
         CategoryEntity::class,
         TransactionEntity::class,
     ],
-    version = 1,
+    version = 3,
     exportSchema = true
 )
 abstract class FinanceDatabase: RoomDatabase() {

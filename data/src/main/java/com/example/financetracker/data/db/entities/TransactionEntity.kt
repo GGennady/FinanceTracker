@@ -12,13 +12,13 @@ import androidx.room.PrimaryKey
             entity = AccountBriefEntity::class,
             parentColumns = ["id"],
             childColumns = ["accountId"],
-            onDelete = ForeignKey.CASCADE
+            onDelete = ForeignKey.NO_ACTION
         ),
         ForeignKey(
             entity = CategoryEntity::class,
             parentColumns = ["id"],
             childColumns = ["categoryId"],
-            onDelete = ForeignKey.CASCADE
+            onDelete = ForeignKey.NO_ACTION
         )
     ],
     indices = [Index("accountId"), Index("categoryId")]
@@ -31,5 +31,6 @@ data class TransactionEntity(
     val transactionDate: String,
     val comment: String? = null,
     val createdAt: String,
-    val updatedAt: String
+    val updatedAt: String,
+    val isSynced: Boolean = true
 )
